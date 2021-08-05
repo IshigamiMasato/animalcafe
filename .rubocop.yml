@@ -16,3 +16,6 @@ AllCops:
     - 'vendor/**/*'
     - 'spec/spec_helper.rb'
     - 'spec/rails_helper.rb'
+
+Style/MixinUsage:
+  Enabled: false
