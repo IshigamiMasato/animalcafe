@@ -1,0 +1,215 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* universal(共通) */
+body {
+  padding-top: 100px;
+  background-color: #F5F5F5; /* 薄灰色 */
+  min-height: 100vh; /* bodyの縦幅が最低でも1画面ぶんはあるようにする */
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+/* typography(書式) */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1; /* 文字の高さが行の高さになる */
+}
+
+h1 {
+  font-size: 3em; /* 親要素に対しての倍率を指定、この場合300%となる */
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: #777; /* 灰色 */
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: #000;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+/* header */
+header {
+  background-color: #FFF;
+}
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: #222;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: lighter;
+  -webkit-transition: all 1s ;
+  transition: all 1s ;
+  &:hover {
+    color: #DDD;
+    text-decoration: none;
+  }
+}
+
+/* hamburger-mune */
+@media screen and (max-width: 800px) {
+  .header-nav {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .l-drawer {
+    display: none;
+  }
+}
+
+.l-drawer {
+  position: relative;
+  &_checkbox {
+    display: none;
+  }
+  &_icon {
+    cursor: pointer;
+    display: block;
+    width: 56px;
+    height: 60px;
+    position: fixed;
+    right: 0;
+    &-parts,
+    &-parts:before,
+    &-parts:after {
+      background-color: #000;
+      display: block;
+      width: 26px;
+      height: 2px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    &-parts:before,
+    &-parts:after {
+      content: " ";
+    }
+    &-parts:before {
+      top: 16px;
+    }
+    &-parts:after {
+      top: -16px;
+    }
+  }
+  &_overlay {
+    background: #000;
+    opacity: 0;
+    pointer-events: none; 
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+  &_menu {
+    background: #fff;
+    color: #000;
+    max-width: 100%;
+    height: 100vh;
+    width: 320px;
+    position: fixed;
+    top: 0;
+    right: -320px;
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; 
+  }
+  &_icon {
+    z-index: 4;
+  }
+  &_menu {
+    z-index: 3;
+  }
+  &_overlay {
+    z-index: 2;
+  }
+  &_checkbox:checked ~ {
+    .l-drawer_icon {
+      .l-drawer_icon-parts {
+        background: transparent;
+      }
+      .l-drawer_icon-parts:before {
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        top: 0;
+      }
+      .l-drawer_icon-parts:after {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        top: 0;
+      }
+    }
+    .l-drawer_overlay {
+      opacity: 0.3;
+      pointer-events: auto;
+    }
+    .l-drawer_menu {
+      right: 0;
+    }
+  }
+   &_icon-parts,
+   &_icon-parts:after,
+   &_icon-parts:before,
+   &_overlay,
+   &_menu {
+     -webkit-transition: all 1s ;
+     transition: all 1s ;
+  }
+  li {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+  }
+  li:first-child {
+    margin-top: 1em;
+  }
+  a {
+    font-weight: lighter;
+  }  
+}
+
+/* footer */
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  color: #222;
+  background-color: #FFF;
+  padding-top: 5px;
+  p {
+    font-weight: lighter;
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.7em;
+  }
+}

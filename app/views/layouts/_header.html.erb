@@ -1,0 +1,26 @@
+<header class="navbar navbar-fixed-top l-header">
+  <div class="container">
+    <%= link_to "ANIMAL CAFE", root_path, id: "logo" %>
+    <nav class="header-nav">
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "What is an animal cafe?", about_path %></li>
+        <li><%= link_to "Log in", "#" %></li>
+      </ul>
+    </nav>
+    <div class="l-drawer">
+      <input class="l-drawer_checkbox" id="drawerCheckbox" type="checkbox">
+      <label class="l-drawer_icon" for="drawerCheckbox">
+        <span class="l-drawer_icon-parts"></span>
+      </label>
+      <label class="l-drawer_overlay" for="drawerCheckbox"></label>
+      <nav class="l-drawer_menu">
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "What is an animal cafe?", about_path %></li>
+          <li><%= link_to "Log in", "#" %></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
