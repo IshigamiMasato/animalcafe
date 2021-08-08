@@ -19,3 +19,6 @@ AllCops:
 
 Style/MixinUsage:
   Enabled: false
+
+RSpec/NotToNot:
+  Enabled: false
