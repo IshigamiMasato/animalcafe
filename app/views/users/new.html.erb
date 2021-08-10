@@ -1,3 +1,25 @@
 <% provide(:title, "SIGN UP") %>
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h1>Sign up</h1>
+
+<div class="signup_frame">
+  <%= form_with(model: @user, local: true) do |f| %>
+    <%= render "shared/error_messages" %>
+
+    <%= f.label :name, "名前" %>
+    <%= f.text_field :name, class: "form-control" %>
+      
+    <%= f.label :email, "メールアドレス" %>
+    <%= f.email_field :email, class: "form-control" %>
+      
+    <%= f.label :avater, "プロフィール画像" %>
+    <%= f.file_field :avater, accept: "image/jpeg, image/gif, image/png" %>
+
+    <%= f.label :password, "パスワード" %>
+    <%= f.password_field :password, class: "form-control" %>
+
+    <%= f.label :password_confirmation, "パスワード(確認)" %>
+    <%= f.password_field :password_confirmation, class: "form-control" %>
+
+    <%= f.submit "登録する", class: "btn btn-primary" %>
+  <% end %>
+</div>

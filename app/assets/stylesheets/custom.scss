@@ -1,11 +1,20 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* mixins */
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
 /* universal(共通) */
 body {
+  position: relative;
   padding-top: 100px;
-  background-color: #F5F5F5; /* 薄灰色 */
-  min-height: 100vh; /* bodyの縦幅が最低でも1画面ぶんはあるようにする */
+  background: #f5f5f5; // 薄い灰色
+  min-height: 100vh; // bodyの縦幅が最低でも1画面ぶんはあるようにする 
+  padding-bottom: 100px;
 }
 
 .center {
@@ -17,11 +26,11 @@ body {
 
 /* typography(書式) */
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1; /* 文字の高さが行の高さになる */
+  line-height: 1; // 文字の高さが行の高さになる
 }
 
 h1 {
-  font-size: 3em; /* 親要素に対しての倍率を指定、この場合300%となる */
+  font-size: 3em; // 親要素に対しての倍率を指定、この場合300%となる 
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
@@ -33,7 +42,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: #777; /* 灰色 */
+  color: #777; // 灰色
 }
 
 p {
@@ -52,9 +61,13 @@ a {
   }
 }
 
+#error_explanation li{
+  list-style-type: disc;
+}
+
 /* header */
 header {
-  background-color: #FFF;
+  background: #fff;
 }
 
 #logo {
@@ -68,7 +81,7 @@ header {
   -webkit-transition: all 1s ;
   transition: all 1s ;
   &:hover {
-    color: #DDD;
+    color: #ddd;
     text-decoration: none;
   }
 }
@@ -101,7 +114,7 @@ header {
     &-parts,
     &-parts:before,
     &-parts:after {
-      background-color: #000;
+      background: #000;
       display: block;
       width: 26px;
       height: 2px;
@@ -204,7 +217,7 @@ footer {
   bottom: 0;
   width: 100vw;
   color: #222;
-  background-color: #FFF;
+  background: #fff;
   padding-top: 5px;
   p {
     font-weight: lighter;
@@ -212,4 +225,86 @@ footer {
     font-size: 1.1em;
     line-height: 1.7em;
   }
+}
+
+/* forms */
+input {
+  @include box_sizing;
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+input {
+  height: auto !important;
+}
+
+#error_explanation {
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  input {
+    border: 1px solid red; 
+  }
+  .form-control {
+    color: red;
+  }
+}
+
+/* signup view */
+.signup_frame {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  box-shadow: 0 0 3px #777;
+  background: #f7f7f7;
+  border-radius: 5px;
+}
+
+/* user_information */
+aside {
+  section.user_info {
+    margin-top: 20px;
+  }
+  section {
+    padding: 10px 0;
+    margin-top: 20px;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
+    }
+  }
+}
+
+div.user_frame {
+  border-bottom: 1px solid #777;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+img.user_avater {
+  float: left;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+img.default_avater {
+  float: left;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 15px;
+  width: 100px;
+  height: 100px;
 }

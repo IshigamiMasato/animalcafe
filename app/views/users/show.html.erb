@@ -1,0 +1,16 @@
+<% provide(:title, @user.name) %>
+
+<div class="row user_frame">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <% if @user.avater.attached? %>
+          <%= image_tag @user.avater.variant(resize_to_fill: [100, 100]), class: "user_avater" %>
+        <% else %>
+          <%= image_tag "default.png", class: "default_avater" %>
+        <% end %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+</div>
