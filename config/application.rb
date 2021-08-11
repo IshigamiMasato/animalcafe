@@ -25,5 +25,13 @@ module Animalcafe
         helper_specs: false,
         routing_specs: false
     end
+
+    # エラーメッセージの日本語化
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.yml").to_s]
+
+    # 時刻設定
+    config.time_zone = "Tokyo"
+    config.active_record.default_timezone = :local
   end
 end

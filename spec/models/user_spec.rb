@@ -17,25 +17,25 @@ RSpec.describe User, type: :model do
   it "名前がなければ無効な状態であること" do
     @user.name = ""
     @user.valid?
-    expect(@user.errors[:name]).to include("can't be blank")
+    expect(@user.errors[:name]).to include("を入力してください")
   end
 
   it "メールアドレスがなければ無効な状態であること" do
     @user.email = ""
     @user.valid?
-    expect(@user.errors[:email]).to include("can't be blank")
+    expect(@user.errors[:email]).to include("を入力してください")
   end
 
   it "名前の長さが51文字以上は無効な状態であること" do
     @user.name = "a" * 51
     @user.valid?
-    expect(@user.errors[:name]).to include("is too long (maximum is 50 characters)")
+    expect(@user.errors[:name]).to include("は50文字以内で入力してください")
   end
 
   it "メールアドレスの長さが256文字以上は無効な状態であること" do
     @user.email = "a" * 244 + "@example.com"
     @user.valid?
-    expect(@user.errors[:email]).to include("is too long (maximum is 255 characters)")
+    expect(@user.errors[:email]).to include("は255文字以内で入力してください")
   end
 
   it "重複したメールアドレスなら無効な状態であること" do
@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
     duplicate_user.save
-    expect(duplicate_user.errors[:email]).to include("has already been taken")
+    expect(duplicate_user.errors[:email]).to include("はすでに存在します")
   end
 
   it "メールアドレスはデータベースに登録される際に、小文字の状態で登録される" do
@@ -56,13 +56,13 @@ RSpec.describe User, type: :model do
   it "パスワードがなければ無効な状態であること" do
     @user.password = @user.password_confirmation = " " * 6
     @user.valid?
-    expect(@user.errors[:password]).to include("can't be blank")
+    expect(@user.errors[:password]).to include("を入力してください")
   end
 
   it "パスワードが5文字以下は無効な状態であること" do
     @user.password = @user.password_confirmation = "a" * 5
     @user.valid?
-    expect(@user.errors[:password]).to include("is too short (minimum is 6 characters)")
+    expect(@user.errors[:password]).to include("は6文字以上で入力してください")
   end
 
   describe "メールフォーマット" do
