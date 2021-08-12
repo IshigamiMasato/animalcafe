@@ -28,6 +28,7 @@ gem 'active_storage_validations'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'bootstrap-sass'
+gem 'font-awesome-sass'
 gem "aws-sdk-s3", require: false
 gem 'rails-i18n'
 

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.avater.attach(params[:user][:avater])
     if @user.save
+      log_in @user
       flash[:success] = "Welcom to the ANIMAL CAFE!"
       redirect_to @user
     else

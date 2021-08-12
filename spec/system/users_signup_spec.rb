@@ -7,7 +7,7 @@ RSpec.describe "UsersSignup", type: :system do
   end
 
   context "有効な登録情報を入力した場合" do
-    scenario "ユーザーが登録されプロフィールページにリダイレクトする" do
+    scenario "ユーザーが登録されprofileページにリダイレクトする" do
       expect {
         fill_in "名前", with: "Example User"
         fill_in "メールアドレス", with: "user@example.com"
@@ -16,8 +16,15 @@ RSpec.describe "UsersSignup", type: :system do
         click_button "Create my account"
       }.to change(User, :count).by(1)
 
-      expect(current_path).to eq user_path(User.last)
+      user = User.last
+
+      expect(current_path).to eq user_path(user)
       expect(page).to have_selector "div.alert-success" # flashの成功メッセージが表示されていることを確認
+
+      within ".navbar-nav" do # ユーザー登録後、ログインしていることを確認
+        expect(page).to_not have_link "Log in"
+        expect(page).to have_link href: user_path(user)
+      end
     end
 
     scenario "プロフィール画像を登録できる" do
@@ -30,10 +37,17 @@ RSpec.describe "UsersSignup", type: :system do
         click_button "Create my account"
       }.to change(User, :count).by(1)
 
-      expect(current_path).to eq user_path(User.last)
+      user = User.last
+
+      expect(current_path).to eq user_path(user)
       expect(page).to have_selector "div.alert-success"
-      expect(User.last.avater.attached?).to eq true # 画像がモデルに結びついていることを確認
+      expect(user.avater.attached?).to eq true # 画像がモデルに結びついていることを確認
       expect(page).to have_selector "img[src$='test.jpg']" # 画面上で$=以降の文字列を含むimg要素があることを確認
+
+      within ".navbar-nav" do # ユーザー登録後、ログインしていることを確認
+        expect(page).to_not have_link "Log in"
+        expect(page).to have_link href: user_path(user)
+      end
     end
   end
 

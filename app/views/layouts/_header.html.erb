@@ -3,9 +3,14 @@
     <%= link_to "ANIMAL CAFE", root_path, id: "logo" %>
     <nav class="header-nav">
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "What is an animal cafe?", about_path %></li>
-        <li><%= link_to "Log in", "#" %></li>
+        <% if logged_in? %>
+          <li><%= link_to "Users", "#" %></li>
+          <li><%= link_to icon("fas", "user"), current_user, class: "user_icon" %></li>
+          <li><%= link_to "Log out", logout_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "What is an animal cafe?", about_path %></li>
+          <li><%= link_to "Log in", login_path %></li>
+        <% end %>
       </ul>
     </nav>
     <div class="l-drawer">
@@ -16,9 +21,14 @@
       <label class="l-drawer_overlay" for="drawerCheckbox"></label>
       <nav class="l-drawer_menu">
         <ul>
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "What is an animal cafe?", about_path %></li>
-          <li><%= link_to "Log in", "#" %></li>
+          <% if logged_in? %>
+            <li><%= link_to "Users", "#" %></li>
+            <li><%= link_to "Profile", current_user %></li>
+            <li><%= link_to "Log out", logout_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "What is an animal cafe?", about_path %></li>
+            <li><%= link_to "Log in", login_path %></li>
+          <% end %>
         </ul>
       </nav>
     </div>

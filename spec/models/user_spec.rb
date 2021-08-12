@@ -1,68 +1,61 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before do
-    @user = User.new(
-      name: "Example User",
-      email: "user@example.com",
-      password: "foobar",
-      password_confirmation: "foobar"
-    )
-  end
+  let(:user) { FactoryBot.build(:user) }
 
   it "名前、メールアドレスがあれば有効であること" do
-    expect(@user).to be_valid
+    expect(user).to be_valid
   end
 
   it "名前がなければ無効な状態であること" do
-    @user.name = ""
-    @user.valid?
-    expect(@user.errors[:name]).to include("を入力してください")
+    user.name = ""
+    user.valid?
+    expect(user.errors[:name]).to include("を入力してください")
   end
 
   it "メールアドレスがなければ無効な状態であること" do
-    @user.email = ""
-    @user.valid?
-    expect(@user.errors[:email]).to include("を入力してください")
+    user.email = ""
+    user.valid?
+    expect(user.errors[:email]).to include("を入力してください")
   end
 
   it "名前の長さが51文字以上は無効な状態であること" do
-    @user.name = "a" * 51
-    @user.valid?
-    expect(@user.errors[:name]).to include("は50文字以内で入力してください")
+    user.name = "a" * 51
+    user.valid?
+    expect(user.errors[:name]).to include("は50文字以内で入力してください")
   end
 
   it "メールアドレスの長さが256文字以上は無効な状態であること" do
-    @user.email = "a" * 244 + "@example.com"
-    @user.valid?
-    expect(@user.errors[:email]).to include("は255文字以内で入力してください")
+    user.email = "a" * 244 + "@example.com"
+    user.valid?
+    expect(user.errors[:email]).to include("は255文字以内で入力してください")
   end
 
   it "重複したメールアドレスなら無効な状態であること" do
-    @user.save
-    duplicate_user = @user.dup
-    duplicate_user.email = @user.email.upcase
+    user.save
+    duplicate_user = user.dup
+    duplicate_user.email = user.email.upcase
     duplicate_user.save
     expect(duplicate_user.errors[:email]).to include("はすでに存在します")
   end
 
   it "メールアドレスはデータベースに登録される際に、小文字の状態で登録される" do
     mixed_case_email = "Foo@ExAMPle.CoM"
-    @user.email = mixed_case_email
-    @user.save
-    expect(@user.reload.email).to eq mixed_case_email.downcase
+    user.email = mixed_case_email
+    user.save
+    expect(user.reload.email).to eq mixed_case_email.downcase
   end
 
   it "パスワードがなければ無効な状態であること" do
-    @user.password = @user.password_confirmation = " " * 6
-    @user.valid?
-    expect(@user.errors[:password]).to include("を入力してください")
+    user.password = user.password_confirmation = " " * 6
+    user.valid?
+    expect(user.errors[:password]).to include("を入力してください")
   end
 
   it "パスワードが5文字以下は無効な状態であること" do
-    @user.password = @user.password_confirmation = "a" * 5
-    @user.valid?
-    expect(@user.errors[:password]).to include("は6文字以上で入力してください")
+    user.password = user.password_confirmation = "a" * 5
+    user.valid?
+    expect(user.errors[:password]).to include("は6文字以上で入力してください")
   end
 
   describe "メールフォーマット" do
@@ -75,8 +68,8 @@ RSpec.describe User, type: :model do
         alice+bob@baz.cn
       )
       valid_addresses.each do |valid_address|
-        @user.email = valid_address
-        expect(@user).to be_valid
+        user.email = valid_address
+        expect(user).to be_valid
       end
     end
 
@@ -90,8 +83,8 @@ RSpec.describe User, type: :model do
         foo@bar..com
       )
       invalid_addresses.each do |invalid_address|
-        @user.email = invalid_address
-        expect(@user).to_not be_valid
+        user.email = invalid_address
+        expect(user).to_not be_valid
       end
     end
   end

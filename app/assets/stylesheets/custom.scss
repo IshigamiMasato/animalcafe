@@ -1,11 +1,23 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 /* mixins */
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
+}
+
+@mixin form_frame {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  box-shadow: 0 0 3px #777;
+  background: #f7f7f7;
+  border-radius: 5px;
 }
 
 /* universal(共通) */
@@ -257,12 +269,7 @@ input {
 
 /* signup view */
 .signup_frame {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 25px;
-  box-shadow: 0 0 3px #777;
-  background: #f7f7f7;
-  border-radius: 5px;
+  @include form_frame;
 }
 
 /* user_information */
@@ -307,4 +314,18 @@ img.default_avater {
   margin-top: 15px;
   width: 100px;
   height: 100px;
+}
+
+/* login view */
+.login_frame {
+  @include form_frame;
+  p {
+    padding-top: 10px;
+    a {
+      color: #0066cb;
+      &:hover {
+        opacity: 0.3;
+      }
+    }
+  }
 }
