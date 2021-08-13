@@ -168,7 +168,6 @@ header {
     top: 0;
     right: -320px;
     overflow-y: auto; 
-    -webkit-overflow-scrolling: touch; 
   }
   &_icon {
     z-index: 4;
@@ -267,12 +266,26 @@ input {
   }
 }
 
-/* signup view */
+/* signup-page */
 .signup_frame {
   @include form_frame;
 }
 
-/* user_information */
+/* login-page */
+.login_frame {
+  @include form_frame;
+  p {
+    padding-top: 10px;
+    a {
+      color: #0066cb;
+      &:hover {
+        opacity: 0.3;
+      }
+    }
+  }
+}
+
+/* profile-page */
 aside {
   section.user_info {
     margin-top: 20px;
@@ -316,16 +329,18 @@ img.default_avater {
   height: 100px;
 }
 
-/* login view */
-.login_frame {
-  @include form_frame;
-  p {
-    padding-top: 10px;
-    a {
-      color: #0066cb;
-      &:hover {
-        opacity: 0.3;
-      }
+/* profile-page-scroll-nav */
+.scroll-nav {
+  width: 100%;
+  ul {
+    height: 30px;
+    line-height: 30px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    li {
+      width: 33%;
+      text-align: center;
     }
   }
 }
