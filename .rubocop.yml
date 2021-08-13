@@ -17,9 +17,6 @@ AllCops:
     - 'spec/spec_helper.rb'
     - 'spec/rails_helper.rb'
 
-Style/MixinUsage: #includeの位置 目的：spec/helpers/application_helperのエラーを除くため
-  Enabled: false
-
 RSpec/NotToNot:
   Enabled: false
 

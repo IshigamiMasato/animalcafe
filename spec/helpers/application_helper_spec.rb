@@ -1,7 +1,6 @@
 require 'rails_helper'
-include ApplicationHelper
 
-RSpec.describe ApplicationHelper, type: :request do
+RSpec.describe ApplicationHelper, type: :helper do
   describe "#full_title(page_title)" do
     context "ページタイトルが空白の場合" do
       it "タイトルはANIMAL CAFE" do
