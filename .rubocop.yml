@@ -25,3 +25,6 @@ Style/BlockDelimiters: # ブロックについて 2行以上ならdo end 1行な
 
 Rails/HelperInstanceVariable: # helperメソッド内でインスタンス変数を使わない
   Enabled: false
+
+RSpec/RepeatedExample: #　sitelayoutsスペックの保留部分のため
+  Enabled: false

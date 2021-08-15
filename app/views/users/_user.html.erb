@@ -1,0 +1,11 @@
+<li>
+  <% if user.avater.attached? %>
+    <%= image_tag user.avater.variant(resize_to_fill: [50, 50]), class: "user_avater" %>
+  <% else %>
+    <%= image_tag "default.png", class: "default_avater" %>
+  <% end %>
+  <%= link_to user.name, user %>
+  <% if current_user.admin? && !current_user?(user) %>
+    | <%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %>
+  <% end %>
+</li>

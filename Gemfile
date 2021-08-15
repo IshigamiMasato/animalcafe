@@ -31,6 +31,9 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem "aws-sdk-s3", require: false
 gem 'rails-i18n'
+gem 'faker'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

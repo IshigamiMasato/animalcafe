@@ -23,6 +23,7 @@ RSpec.describe "UsersSignup", type: :system do
 
       within ".navbar-nav" do # ユーザー登録後、ログインしていることを確認
         expect(page).to_not have_link "Log in"
+        expect(page).to have_link "Log out"
         expect(page).to have_link href: user_path(user)
       end
     end
@@ -46,6 +47,7 @@ RSpec.describe "UsersSignup", type: :system do
 
       within ".navbar-nav" do # ユーザー登録後、ログインしていることを確認
         expect(page).to_not have_link "Log in"
+        expect(page).to have_link "Log out"
         expect(page).to have_link href: user_path(user)
       end
     end

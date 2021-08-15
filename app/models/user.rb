@@ -25,7 +25,7 @@ class User < ApplicationRecord
 
   # has_secure_password関連
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   # 渡された文字列のハッシュ値を返す has_secure_passwordで使われている
   def User.digest(string)

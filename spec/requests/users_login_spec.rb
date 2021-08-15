@@ -8,8 +8,8 @@ RSpec.describe "UsersLogin", type: :request do
       get login_path
       post login_path, params: {
         session: {
-          email: "user@test.com",
-          password: "foobar",
+          email: user.email,
+          password: user.password,
         },
       }
 

@@ -5,31 +5,23 @@ RSpec.describe "UsersLogin", type: :system do
 
   context "有効なログイン情報を入力した場合" do
     scenario "ログインできprofileページにリダイレクトした後、ログアウトしHomeページにリダイレクトする" do
-      visit login_path
-      expect(current_path).to eq login_path
-
-      fill_in "Email", with: "user@test.com"
-      fill_in "Password", with: "foobar"
-      click_button "Log in"
+      # ユーザーとしてログイン
+      log_in_as(user)
 
       within ".navbar-nav" do # ログインしていることを確認
         expect(page).to_not have_link "Log in"
+        expect(page).to have_link "Log out"
         expect(page).to have_link href: user_path(user)
       end
-
       expect(current_path).to eq user_path(user)
-
-      expect(page).to_not have_link "Log in"
-      expect(page).to have_link "Log out"
-      expect(page).to have_link "Profile"
 
       click_link "Log out", match: :first
 
-      within ".navbar-nav" do # ログインしていないことを確認
+      within ".navbar-nav" do # ログアウトしていることを確認
         expect(page).to have_link "Log in"
+        expect(page).to_not have_link "Log out"
         expect(page).to_not have_link href: user_path(user)
       end
-
       expect(current_path).to eq root_path
     end
   end
@@ -39,15 +31,15 @@ RSpec.describe "UsersLogin", type: :system do
       visit login_path
       expect(current_path).to eq login_path
 
-      fill_in "Email", with: "user@test.com"
+      fill_in "Email", with: user.email
       fill_in "Password", with: "invalid"
       click_button "Log in"
 
       within ".navbar-nav" do # ログインしていないことを確認
         expect(page).to have_link "Log in"
+        expect(page).to_not have_link "Log out"
         expect(page).to_not have_link href: user_path(user)
       end
-
       expect(current_path).to eq login_path
       expect(page).to have_selector "div.alert-danger"
 
@@ -67,9 +59,9 @@ RSpec.describe "UsersLogin", type: :system do
 
       within ".navbar-nav" do # ログインしていないことを確認
         expect(page).to have_link "Log in"
+        expect(page).to_not have_link "Log out"
         expect(page).to_not have_link href: user_path(user)
       end
-
       expect(current_path).to eq login_path
       expect(page).to have_selector "div.alert-danger"
 

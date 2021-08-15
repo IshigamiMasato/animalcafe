@@ -4,7 +4,7 @@
     <nav class="header-nav">
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <li><%= link_to "Users", "#" %></li>
+          <li><%= link_to "Users", users_path %></li>
           <li><%= link_to icon("fas", "user"), current_user, class: "user_icon" %></li>
           <li><%= link_to "Log out", logout_path, method: :delete %></li>
         <% else %>
@@ -22,7 +22,7 @@
       <nav class="l-drawer_menu">
         <ul>
           <% if logged_in? %>
-            <li><%= link_to "Users", "#" %></li>
+            <li><%= link_to "Users", users_path %></li>
             <li><%= link_to "Profile", current_user %></li>
             <li><%= link_to "Log out", logout_path, method: :delete %></li>
           <% else %>
