@@ -350,6 +350,10 @@ img.default_avater {
       margin: 0 auto;
       padding: 0;
       display: flex;
+      .scroll-nav-list:first-child:nth-last-child(2),
+      .scroll-nav-list:first-child:nth-last-child(2) ~ .scroll-nav-list {
+        width: 50%;
+      }
       li {
         white-space: nowrap;
         text-align: center;
@@ -359,18 +363,6 @@ img.default_avater {
         }
       }
     }
-  }
-  .next-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 15px;
-    height: 35px;
-    line-height: 35px;
-    border-left: 2px solid #777;
-    background: #f5f5f5;
-    padding-left: 10px;
-    margin-top: 10px;
   }
 }
 
@@ -382,9 +374,6 @@ img.default_avater {
   .scroll-nav-list:first-child:nth-last-child(2),
   .scroll-nav-list:first-child:nth-last-child(2) ~ .scroll-nav-list {
     width: 50%;
-  }
-  .next-btn {
-    display: none;
   }
 }
 

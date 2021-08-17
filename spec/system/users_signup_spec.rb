@@ -7,21 +7,50 @@ RSpec.describe "UsersSignup", type: :system do
   end
 
   context "有効な登録情報を入力した場合" do
-    scenario "ユーザーが登録されprofileページにリダイレクトする" do
+    scenario "ユーザーが登録され、有効化するとprofileページにリダイレクトする" do
+      user_params = FactoryBot.attributes_for(:user, :no_activated)
+
       expect {
-        fill_in "名前", with: "Example User"
-        fill_in "メールアドレス", with: "user@example.com"
-        fill_in "パスワード", with: "password"
-        fill_in "パスワード(確認)", with: "password"
-        click_button "Create my account"
+        post users_path, params: { user: user_params }
       }.to change(User, :count).by(1)
 
-      user = User.last
+      user = controller.instance_variable_get("@user") # コントローラー内のインスタンス変数を取得
+
+      expect(ActionMailer::Base.deliveries.size).to eq 1 # 送られたメール件数が1件なのを確認
+      expect(user.activated?).to eq false # 登録後はまだ有効化されていない
+
+      # 有効化していない状態でログインしてみる
+      log_in_as(user)
+      within ".navbar-nav" do # ログインしていないことを確認
+        expect(page).to have_link "Log in"
+        expect(page).to_not have_link "Log out"
+        expect(page).to_not have_link href: user_path(user)
+      end
+
+      # 有効化トークンが不正な場合
+      visit edit_account_activation_path("invalid token", email: user.email)
+      within ".navbar-nav" do # ログインしていないことを確認
+        expect(page).to have_link "Log in"
+        expect(page).to_not have_link "Log out"
+        expect(page).to_not have_link href: user_path(user)
+      end
+
+      # トークンは正しいがメールアドレスが無効な場合
+      visit edit_account_activation_path(user.activation_token, email: "wrong")
+      within ".navbar-nav" do # ログインしていないことを確認
+        expect(page).to have_link "Log in"
+        expect(page).to_not have_link "Log out"
+        expect(page).to_not have_link href: user_path(user)
+      end
+
+      # 有効化トークンが正しい場合
+      visit edit_account_activation_path(user.activation_token, email: user.email)
+      expect(user.reload.activated?).to eq true
 
       expect(current_path).to eq user_path(user)
       expect(page).to have_selector "div.alert-success" # flashの成功メッセージが表示されていることを確認
 
-      within ".navbar-nav" do # ユーザー登録後、ログインしていることを確認
+      within ".navbar-nav" do # ログインしていることを確認
         expect(page).to_not have_link "Log in"
         expect(page).to have_link "Log out"
         expect(page).to have_link href: user_path(user)
@@ -29,27 +58,28 @@ RSpec.describe "UsersSignup", type: :system do
     end
 
     scenario "プロフィール画像を登録できる" do
+      user_params = FactoryBot.attributes_for(:user, :no_activated, :add_image_avater)
+
       expect {
-        fill_in "名前", with: "Example User"
-        fill_in "メールアドレス", with: "user@example.com"
-        attach_file("user_avater", "#{Rails.root}/spec/fixtures/test.jpg")
-        fill_in "パスワード", with: "password"
-        fill_in "パスワード(確認)", with: "password"
-        click_button "Create my account"
+        post users_path, params: { user: user_params }
       }.to change(User, :count).by(1)
 
-      user = User.last
+      user = controller.instance_variable_get("@user")
+
+      visit edit_account_activation_path(user.activation_token, email: user.email)
+      expect(user.reload.activated?).to eq true
 
       expect(current_path).to eq user_path(user)
       expect(page).to have_selector "div.alert-success"
-      expect(user.avater.attached?).to eq true # 画像がモデルに結びついていることを確認
-      expect(page).to have_selector "img[src$='test.jpg']" # 画面上で$=以降の文字列を含むimg要素があることを確認
 
-      within ".navbar-nav" do # ユーザー登録後、ログインしていることを確認
+      within ".navbar-nav" do # ログインしていることを確認
         expect(page).to_not have_link "Log in"
         expect(page).to have_link "Log out"
         expect(page).to have_link href: user_path(user)
       end
+
+      expect(user.avater.attached?).to eq true # 画像がモデルに結びついていることを確認
+      expect(page).to have_selector "img[src$='test.jpg']" # 画面上で$=以降の文字列を含むimg要素があることを確認
     end
   end
 
