@@ -31,3 +31,12 @@ RSpec/RepeatedExample: #　sitelayoutsスペックの保留部分のため
 
 Style/AndOr: # app/controllers/users_controller.rb:16 and→&&
   Enabled: false
+
+Layout/FirstHashElementLineBreak: # ハッシュの形式
+  Enabled: false
+
+Layout/MultilineHashBraceLayout: # ハッシュの形式
+  Enabled: false
+
+Style/ParenthesesAroundCondition: # unles文 ()で囲まない
+  Enabled: false

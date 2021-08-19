@@ -12,18 +12,15 @@ FactoryBot.define do
       activated_at { nil }
     end
 
-    trait :add_image_avater do
-      avater { Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/test.jpg") }
+    trait :admin do
+      admin { true }
     end
   end
 
-  factory :admin_user, class: "User" do
-    name { "admin_user" }
-    email { "user@admin.com" }
-    password { "foobar" }
-    password_confirmation { "foobar" }
-    admin { true }
-    activated { true }
-    activated_at { Time.zone.now }
+  factory :invalid_user, class: "User" do
+    name { "" }
+    email { "user@invalid" }
+    password { "foo" }
+    password_confirmation { "bar" }
   end
 end

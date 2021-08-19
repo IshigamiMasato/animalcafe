@@ -395,3 +395,8 @@ img.default_avater {
     border-bottom: 1px solid #777;
   }
 }
+
+/* password_reset_page */
+.password_reset_frame {
+  @include form_frame;
+}
