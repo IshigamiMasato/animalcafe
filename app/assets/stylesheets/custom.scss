@@ -4,6 +4,9 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+@import "slick-carousel/slick/slick.scss";
+@import "slick-carousel/slick/slick-theme.scss";
+
 /* mixins */
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
