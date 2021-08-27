@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       user:
+      shop:
     attributes:
       user:
         name: 名前
@@ -9,3 +10,16 @@ ja:
         password: パスワード
         password_confirmation: パスワード(確認)
         avater: プロフィール画像
+      shop:
+        name: 店名
+        started_at: 開店時間
+        closed_at: 閉店時間
+        regular_holiday: 定休日
+        phone_number: 電話番号
+        address: 住所
+        nearest_station: 最寄り駅
+        low_budget: 予算(下)
+        high_budget: 予算(上)
+        description: 店舗紹介
+        user: ユーザー
+        images: 画像

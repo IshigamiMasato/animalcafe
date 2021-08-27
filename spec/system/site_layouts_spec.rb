@@ -67,6 +67,8 @@ RSpec.describe "SiteLayouts", type: :system do
           expect(page).to have_link href: user_path(user)
           expect(page).to have_link "Profile"
           expect(page).to have_link "Log out", count: 2
+          expect(page).to have_link href: new_shop_path
+          expect(page).to have_link "New post"
         end
 
         describe "画面遷移" do
@@ -94,6 +96,12 @@ RSpec.describe "SiteLayouts", type: :system do
               expect(current_path).to eq users_path
               expect(page).to have_title "All users | ANIMAL CAFE"
             end
+
+            it "+Postリンクを押すと、shop投稿ページに遷移する" do
+              find(".post_shop_icon").click
+              expect(current_path).to eq new_shop_path
+              expect(page).to have_title "Post shop | ANIMAL CAFE"
+            end
           end
 
           describe "サイドバーのリンク" do
@@ -114,6 +122,12 @@ RSpec.describe "SiteLayouts", type: :system do
               expect(current_path).to eq users_path
               expect(page).to have_title "All users | ANIMAL CAFE"
             end
+
+            it "New postリンクを押すと、shop投稿ページに遷移する" do
+              click_link "New post"
+              expect(current_path).to eq new_shop_path
+              expect(page).to have_title "Post shop | ANIMAL CAFE"
+            end
           end
         end
       end
@@ -133,13 +147,8 @@ RSpec.describe "SiteLayouts", type: :system do
             expect(page).to have_title "Edit user | ANIMAL CAFE"
           end
 
-          it "過去の投稿リンクを押すと、そのページに遷移する" do
-            # 投稿機能実装後
-          end
-
-          it "ピンした投稿リンクを押すと、そのページに遷移する" do
-            # ピン機能実装後
-          end
+          it "過去の投稿リンクを押すと、そのページに遷移する"
+          it "ピンした投稿リンクを押すと、そのページに遷移する"
         end
       end
     end

@@ -1,0 +1,54 @@
+<%= form_with(model: @shop, local: true) do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: "form-control", placeholder: "ニャンニャン猫カフェ" %>
+
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :started_at %>
+      <%= f.time_field :started_at, class: "form-control" %>
+    </div>
+    <div class="col-xs-1">
+      <div class="wavy_line">〜</div>
+    </div>
+    <div class="col-xs-5">
+      <%= f.label :closed_at %>
+      <%= f.time_field :closed_at, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= f.label :regular_holiday %>
+  <%= f.text_field :regular_holiday, class: "form-control", placeholder: "月曜日 / 年中無休 など" %>
+
+  <%= f.label :phone_number %>
+  <%= f.telephone_field :phone_number, class: "form-control", placeholder: "123-456-789" %>
+
+  <%= f.label :address %>
+  <%= f.text_field :address, class: "form-control", placeholder: "東京都渋谷区渋谷２丁目２４−１ スクランブルスクエア 302号" %>
+
+  <%= f.label :nearest_station %>
+  <%= f.text_field :nearest_station, class: "form-control", placeholder: "東京駅" %>
+
+  <div class="row">
+    <div class="col-xs-5">
+      <%= f.label :low_budget %>
+      <%= f.number_field :low_budget, step: "100", class: "form-control", placeholder: 1000 %>
+    </div>
+    <div class="col-xs-1">
+      <div class="wavy_line">〜</div>
+    </div>
+    <div class="col-xs-5">
+      <%= f.label :high_budget %>
+      <%= f.number_field :high_budget, step: "100", class: "form-control", placeholder: 2500 %>
+    </div>
+  </div>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, class: "form-control", placeholder: "かわいい猫ちゃんがいます、人懐っこい子が多いです!お昼になると餌あげタイムもあります！" %>
+
+  <%= f.label :images %>
+  <%= f.file_field :images, multiple: true, accept: "image/jpeg, image/gif, image/png" %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>

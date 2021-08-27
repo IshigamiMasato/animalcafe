@@ -5,32 +5,27 @@ RSpec.describe "UsersShow", type: :system do
   let(:other_user) { FactoryBot.create(:user) }
   let(:non_activated_user) { FactoryBot.create(:user, :no_activated) }
 
-  context "ログインしている場合" do
-    before { log_in_as(user) }
+  it "ユーザーページのリンクのテスト" do
+    # ログインする前
+    visit user_path(user)
+    expect(current_path).to eq user_path(user)
+    expect(page).to_not have_link "プロフィール編集"
 
-    it "ログインユーザーのshowページに、プロフィール編集リンクを表示する" do
-      visit user_path(user)
-      expect(current_path).to eq user_path(user)
-      expect(page).to have_link "プロフィール編集"
-    end
+    # ログインした後
+    log_in_as(user)
 
-    it "ログインユーザーとは別ユーザーのshowページに、プロフィール編集リンクを表示しない" do
-      visit user_path(other_user)
-      expect(current_path).to eq user_path(other_user)
-      expect(page).to_not have_link "プロフィール編集"
-    end
+    # ログインユーザーのshowページに、プロフィール編集リンクを表示する
+    visit user_path(user)
+    expect(current_path).to eq user_path(user)
+    expect(page).to have_link "プロフィール編集"
 
-    it "有効でないユーザーのページは表示せず、homeページにリダイレクトする" do
-      visit user_path(non_activated_user)
-      expect(current_path).to eq root_path
-    end
-  end
+    # ログインユーザーとは別ユーザーのshowページに、プロフィール編集リンクを表示しない
+    visit user_path(other_user)
+    expect(current_path).to eq user_path(other_user)
+    expect(page).to_not have_link "プロフィール編集"
 
-  context "ログインしていない場合" do
-    it "ユーザーのshowページに、プロフィール編集リンクを表示しない" do
-      visit user_path(user)
-      expect(current_path).to eq user_path(user)
-      expect(page).to_not have_link "プロフィール編集"
-    end
+    # 有効でないユーザーのページは表示せず、homeページにリダイレクトする
+    visit user_path(non_activated_user)
+    expect(current_path).to eq root_path
   end
 end

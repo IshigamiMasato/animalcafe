@@ -26,9 +26,6 @@ Style/BlockDelimiters: # ブロックについて 2行以上ならdo end 1行な
 Rails/HelperInstanceVariable: # helperメソッド内でインスタンス変数を使わない
   Enabled: false
 
-RSpec/RepeatedExample: #　sitelayoutsスペックの保留部分のため
-  Enabled: false
-
 Style/AndOr: # app/controllers/users_controller.rb:16 and→&&
   Enabled: false
 
@@ -39,4 +36,13 @@ Layout/MultilineHashBraceLayout: # ハッシュの形式
   Enabled: false
 
 Style/ParenthesesAroundCondition: # unles文 ()で囲まない
+  Enabled: false
+
+Airbnb/DefaultScope:
+  Enabled: false
+
+Lint/UselessAssignment: # slickファイル
+  Enabled: false
+
+Layout/TrailingBlankLines: # slickファイル
   Enabled: false

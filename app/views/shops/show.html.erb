@@ -1,0 +1,96 @@
+<%= provide(:title, @shop.name) %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-7">
+      <div class="shop_frame">
+        <div class="slider">
+          <% if @shop.images.attached? %>
+            <% @shop.images.each do |image| %>
+              <%= image_tag image %>
+            <% end %>
+          <% else %>
+            <%= image_tag "noimage.jpg" %>
+          <% end %>
+        </div>
+        <div class="shop_name"><%= @shop.name %></div>
+        <i class="fas fa-map-marker-alt"></i><span><%= @shop.nearest_station %></span>
+        <i class="far fa-clock"></i><span><%= @shop.started_at.strftime("%H:%M") %>~<%= @shop.closed_at.strftime("%H:%M") %></span>
+        <span class="poster_link">投稿者:
+          <%= link_to @shop.user do %>
+            <% if @shop.user.avater.attached? %>
+              <%= image_tag @shop.user.avater.variant(resize_to_fill: [15, 15]), class: "poster_avater_link" %>
+            <% else %>
+              <%= image_tag "default.png", class: "default_avater_link" %>
+            <% end %>
+            <%= @shop.user.name %>
+          <% end %>
+        </span>
+        <p>このカフェについて</p>
+        <div class="description"><%= @shop.description %></div>
+        <table border="1" cellpadding="5">
+          <caption>店舗情報</caption>
+            <tr>
+              <th>店舗名<tdh>
+              <td><%= @shop.name %></td>
+            </tr>
+            <tr>
+              <th>最寄り駅<tdh>
+              <td><%= @shop.nearest_station %></td>
+            </tr>
+            <tr>
+              <th>住所<tdh>
+              <td>
+                <%= @shop.address %>
+                <div id="map"></div>
+              </td>
+            </tr>
+            <tr>
+              <th>電話番号<tdh>
+              <td><%= @shop.phone_number %></td>
+            </tr>
+            <tr>
+              <th>営業時間<tdh>
+              <td><%= @shop.started_at.strftime("%H:%M") %>~<%= @shop.closed_at.strftime("%H:%M") %></td>
+            </tr>
+            <tr>
+              <th>定休日</th>
+              <td><%= @shop.regular_holiday %></td>
+            </tr>
+            <tr>
+              <th>平均予算</th>
+              <td><%= @shop.low_budget %>円~<%= @shop.high_budget %>円</td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_pack_tag "slick/application" %>
+<script>
+  function initMap() {
+    var position ={ lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %> };
+    var map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 16,
+      center: position
+    });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    var contentString = "住所：<%= @shop.address %>";
+    var infoWindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+      position:position,
+      map: map,
+      title: contentString
+    });
+
+    marker.addListener("click", function() {
+      infoWindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= Rails.application.credentials.dig(:map, :google_map_api_key) %>&callback=initMap"></script>
