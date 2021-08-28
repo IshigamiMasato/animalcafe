@@ -15,7 +15,7 @@
         <div class="shop_name"><%= @shop.name %></div>
         <i class="fas fa-map-marker-alt"></i><span><%= @shop.nearest_station %></span>
         <i class="far fa-clock"></i><span><%= @shop.started_at.strftime("%H:%M") %>~<%= @shop.closed_at.strftime("%H:%M") %></span>
-        <span class="poster_link">投稿者:
+        <div class="poster_link">投稿者:
           <%= link_to @shop.user do %>
             <% if @shop.user.avater.attached? %>
               <%= image_tag @shop.user.avater.variant(resize_to_fill: [15, 15]), class: "poster_avater_link" %>
@@ -24,11 +24,10 @@
             <% end %>
             <%= @shop.user.name %>
           <% end %>
-        </span>
+        </div>
         <p>このカフェについて</p>
         <div class="description"><%= @shop.description %></div>
         <table border="1" cellpadding="5">
-          <caption>店舗情報</caption>
             <tr>
               <th>店舗名<tdh>
               <td><%= @shop.name %></td>
