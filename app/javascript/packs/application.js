@@ -7,8 +7,6 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "slick-carousel/slick/slick.scss"
-import "slick-carousel/slick/slick-theme.scss"
 
 Rails.start()
 Turbolinks.start()
