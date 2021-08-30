@@ -5,7 +5,7 @@ RSpec.describe "UsersSignup", type: :system do
     visit root_path
     expect(current_path).to eq root_path
 
-    click_link "Sign up now!"
+    click_link "Sign up now!", match: :first
     expect(current_path).to eq signup_path
 
     # 無効な情報を入力した場合
@@ -55,7 +55,7 @@ RSpec.describe "UsersSignup", type: :system do
     expect(page).to have_selector "div.alert-info"
     expect(user.avater.attached?).to eq true # 画像がモデルに結びついていることを確認
 
-    within ".navbar-nav" do # ログインしていないことを確認
+    within ".navbar-right" do # ログインしていないことを確認
       expect(page).to have_link "Log in"
       expect(page).to_not have_link "Log out"
       expect(page).to_not have_link href: user_path(user)

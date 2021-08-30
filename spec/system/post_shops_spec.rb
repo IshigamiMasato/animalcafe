@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "PostShops", type: :system do
   let!(:user) { FactoryBot.create(:user) }
+  let(:other_user) { FactoryBot.create(:user) }
+  let!(:other_user_shop) { FactoryBot.create(:shop, user: other_user) }
 
-  it "店舗を投稿する" do
+  it "店舗を投稿し、削除する" do
     # ログイン前
     visit root_path
     expect(current_path).to eq root_path
@@ -12,7 +14,7 @@ RSpec.describe "PostShops", type: :system do
     # ログイン後
     log_in_as(user)
     expect(current_path).to eq user_path(user)
-    within ".navbar-nav" do # ログインしていることを確認
+    within ".navbar-right" do # ログインしていることを確認
       expect(page).to_not have_link "Log in"
       expect(page).to have_link "Log out"
       expect(page).to have_link href: user_path(user)
@@ -64,8 +66,8 @@ RSpec.describe "PostShops", type: :system do
       fill_in "閉店時間", with: "19:00"
       fill_in "定休日", with: "月曜日"
       fill_in "電話番号", with: "123-456-789"
-      fill_in "住所", with: "新宿区西新宿2-8-1"
-      fill_in "最寄り駅", with: "新宿駅"
+      fill_in "住所", with: "神奈川県横浜市鶴見区末広町２丁目"
+      fill_in "最寄り駅", with: "芝浦駅"
       fill_in "予算(下)", with: 1000
       fill_in "予算(上)", with: 2000
       fill_in "店舗紹介", with: "a" * 300
@@ -73,8 +75,28 @@ RSpec.describe "PostShops", type: :system do
       click_button "Post shop"
     }.to change(Shop, :count).by(1)
 
-    shop = Shop.last
+    shop = Shop.first # scopeを降順に設定しているため
     expect(current_path).to eq shop_path(shop)
     expect(page).to have_selector "div.alert-success"
+
+    # 投稿を削除する
+    find(".user_icon").click
+    expect(current_path).to eq user_path(user)
+
+    expect(page).to have_link "delete"
+    expect {
+      click_link "delete"
+    }.to change(Shop, :count).by(-1)
+    expect(current_path).to eq user_path(user)
+    expect(page).to have_selector "div.alert-success"
+
+    # 違うユーザーのプロフィールに削除リンクがない
+    click_link "Users", match: :first
+    expect(current_path).to eq users_path
+    expect(page).to have_link other_user.name
+    click_link other_user.name
+    expect(current_path).to eq user_path(other_user)
+    expect(page).to have_content other_user_shop.name
+    expect(page).to_not have_link "delete"
   end
 end

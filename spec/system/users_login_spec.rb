@@ -16,7 +16,7 @@ RSpec.describe "UsersLogin", type: :system do
     click_button "Log in"
 
     expect(page).to have_selector "div.alert-danger"
-    within ".navbar-nav" do # ログインしていないことを確認
+    within ".navbar-right" do # ログインしていないことを確認
       expect(page).to have_link "Log in"
       expect(page).to_not have_link "Log out"
       expect(page).to_not have_link href: user_path(user)
@@ -39,7 +39,7 @@ RSpec.describe "UsersLogin", type: :system do
     click_button "Log in"
 
     expect(page).to have_selector "div.alert-danger"
-    within ".navbar-nav" do # ログインしていないことを確認
+    within ".navbar-right" do # ログインしていないことを確認
       expect(page).to have_link "Log in"
       expect(page).to_not have_link "Log out"
       expect(page).to_not have_link href: user_path(user)
@@ -62,7 +62,7 @@ RSpec.describe "UsersLogin", type: :system do
     click_button "Log in"
 
     expect(current_path).to eq user_path(user)
-    within ".navbar-nav" do # ログインしていることを確認
+    within ".navbar-right" do # ログインしていることを確認
       expect(page).to_not have_link "Log in"
       expect(page).to have_link "Log out"
       expect(page).to have_link href: user_path(user)
@@ -72,7 +72,7 @@ RSpec.describe "UsersLogin", type: :system do
     click_link "Log out", match: :first
 
     expect(current_path).to eq root_path
-    within ".navbar-nav" do # ログアウトしていることを確認
+    within ".navbar-right" do # ログアウトしていることを確認
       expect(page).to have_link "Log in"
       expect(page).to_not have_link "Log out"
       expect(page).to_not have_link href: user_path(user)

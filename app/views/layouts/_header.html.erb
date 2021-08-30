@@ -1,6 +1,10 @@
 <header class="navbar navbar-fixed-top l-header">
   <div class="container">
     <%= link_to "ANIMAL CAFE", root_path, id: "logo" %>
+    <%= form_with(url: shops_path, method: :get, scope: :search, local: true, class: "nav navbar-nav navbar-left search_form") do |f| %>
+      <%= f.text_field :address, class: "form-control", placeholder: "エリアで検索" %>
+      <%= f.submit "検索", class: "btn" %>
+    <% end %>
     <nav class="header-nav">
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
@@ -9,7 +13,7 @@
           <li><%= link_to icon("fas", "user"), current_user, class: "user_icon" %></li>
           <li><%= link_to "Log out", logout_path, method: :delete %></li>
         <% else %>
-          <li><%= link_to "What is an animal cafe?", about_path %></li>
+          <li><%= link_to "Sign up now!", signup_path %></li>
           <li><%= link_to "Log in", login_path %></li>
         <% end %>
       </ul>
@@ -28,7 +32,7 @@
             <li><%= link_to "Profile", current_user %></li>
             <li><%= link_to "Log out", logout_path, method: :delete %></li>
           <% else %>
-            <li><%= link_to "What is an animal cafe?", about_path %></li>
+            <li><%= link_to "Sign up now!", signup_path %></li>
             <li><%= link_to "Log in", login_path %></li>
           <% end %>
         </ul>

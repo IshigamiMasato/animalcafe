@@ -9,7 +9,7 @@
               <%= image_tag image %>
             <% end %>
           <% else %>
-            <%= image_tag "noimage.jpg" %>
+            <%= image_tag "noimage.png" %>
           <% end %>
         </div>
         <div class="shop_name"><%= @shop.name %></div>
@@ -57,7 +57,11 @@
             </tr>
             <tr>
               <th>平均予算</th>
-              <td><%= @shop.low_budget %>円~<%= @shop.high_budget %>円</td>
+              <td><%= @shop.low_budget %>円~
+                <% if @shop.high_budget %>
+                  <%= @shop.high_budget %>円
+                <% end %>
+              </td>
             </tr>
         </table>
       </div>

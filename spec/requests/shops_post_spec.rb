@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Shops", type: :request do
+RSpec.describe "ShopsPost", type: :request do
   describe "GET /shops/new" do
     let!(:user) { FactoryBot.create(:user) }
 

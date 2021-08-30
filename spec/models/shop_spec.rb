@@ -81,7 +81,7 @@ RSpec.describe Shop, type: :model do
 
   it "重複した店名は無効である" do
     shop.save
-    duplicate_name_shop = FactoryBot.build(:shop, address: "東京都新宿区新宿３丁目３８−１", user: user)
+    duplicate_name_shop = FactoryBot.build(:shop, name: shop.name, address: "東京都新宿区新宿３丁目３８−１", user: user)
     duplicate_name_shop.save
     expect(duplicate_name_shop.errors[:name]).to include("はすでに存在します")
   end

@@ -1,0 +1,12 @@
+<% if @shops.any? %>
+  <div class="container user_post_frame_wrap">
+    <div class="user_post_frame">
+      <p>検索結果: <%= @shops.count %>件</p>
+      <ol class="shops">
+        <%= render @shops %>
+      </ol>
+    </div>
+  </div>
+<% else %>
+  <p>検索結果: 0件</p>
+<% end %>

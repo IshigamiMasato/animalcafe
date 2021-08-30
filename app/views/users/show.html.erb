@@ -25,3 +25,13 @@
     </ul>
   </div>
 </div>
+<% if @user.shops.any? %>
+  <div class="container user_post_frame_wrap">
+    <div class="user_post_frame">
+      <p>過去の投稿: <%= @user.shops.count %>件</p>
+      <ol class="shops">
+        <%= render @shops %>
+      </ol>
+    </div>
+  </div>
+<% end %>

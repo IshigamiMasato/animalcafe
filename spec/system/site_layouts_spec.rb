@@ -7,15 +7,15 @@ RSpec.describe "SiteLayouts", type: :system do
 
       it "ヘッダーとサイドバーに正しいリンクを表示する" do
         expect(page).to have_link "ANIMAL CAFE"
-        expect(page).to have_link "What is an animal cafe?", count: 2
+        expect(page).to have_link "What is an animal cafe?"
         expect(page).to have_link "Log in", count: 2
-        expect(page).to have_link "Sign up now!"
+        expect(page).to have_link "Sign up now!", count: 2
       end
 
-      it "Sign up now!のリンクを押すと、signupページに遷移する" do
-        click_link "Sign up now!"
-        expect(current_path).to eq signup_path
-        expect(page).to have_title "Sign up | ANIMAL CAFE"
+      it "What is an animal cafe?リンクを押すと、aboutページに遷移する" do
+        click_link "What is an animal cafe?"
+        expect(current_path).to eq about_path
+        expect(page).to have_title "About | ANIMAL CAFE"
       end
 
       describe "画面遷移" do
@@ -26,30 +26,30 @@ RSpec.describe "SiteLayouts", type: :system do
             expect(page).to have_title "ANIMAL CAFE"
           end
 
-          it "What is an animal cafe?リンクを押すと、aboutページに遷移する" do
-            click_link "What is an animal cafe?", match: :first
-            expect(current_path).to eq about_path
-            expect(page).to have_title "About | ANIMAL CAFE"
-          end
-
           it "Log inリンクを押すと、loginページに遷移する" do
             click_link "Log in", match: :first
             expect(current_path).to eq login_path
             expect(page).to have_title "Log in | ANIMAL CAFE"
           end
+
+          it "Sign up now!のリンクを押すと、signupページに遷移する" do
+            click_link "Sign up now!", match: :first
+            expect(current_path).to eq signup_path
+            expect(page).to have_title "Sign up | ANIMAL CAFE"
+          end
         end
 
         describe "サイドバーのリンク" do
-          it "What is an animal cafe?リンクを押すと、aboutページに遷移する" do
-            page.all(:link, "What is an animal cafe?")[1].click
-            expect(current_path).to eq about_path
-            expect(page).to have_title "About | ANIMAL CAFE"
-          end
-
           it "Log inリンクを押すと、loginページに遷移する" do
             page.all(:link, "Log in")[1].click
             expect(current_path).to eq login_path
             expect(page).to have_title "Log in | ANIMAL CAFE"
+          end
+
+          it "Sign up now!のリンクを押すと、signupページに遷移する" do
+            page.all(:link, "Sign up now!")[1].click
+            expect(current_path).to eq signup_path
+            expect(page).to have_title "Sign up | ANIMAL CAFE"
           end
         end
       end
@@ -64,8 +64,7 @@ RSpec.describe "SiteLayouts", type: :system do
         it "ヘッダーとサイドバーに正しいリンクを表示する" do
           expect(page).to have_link "ANIMAL CAFE"
           expect(page).to have_link "Users", count: 2
-          expect(page).to have_link href: user_path(user)
-          expect(page).to have_link "Profile"
+          expect(page).to have_link href: user_path(user), count: 2
           expect(page).to have_link "Log out", count: 2
           expect(page).to have_link href: new_shop_path
           expect(page).to have_link "New post"

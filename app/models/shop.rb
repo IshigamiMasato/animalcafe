@@ -1,6 +1,16 @@
 class Shop < ApplicationRecord
   belongs_to :user
+
+  # shopの並び順
   default_scope -> { order(created_at: :desc) }
+
+  # 検索メソッド
+  scope :search, -> (search_params) do
+    return [] if search_params[:address].blank?
+    address_like(search_params[:address])
+  end
+
+  scope :address_like, -> (address) { where("address LIKE ?", "%#{address}%") }
 
   # geocode関連
   geocoded_by :address
