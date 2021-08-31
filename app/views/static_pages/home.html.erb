@@ -1,9 +1,9 @@
 <div class="top_main">
   <div class="home_search_area">
-    <p>動物カフェを検索できます</p>
+    <p>動物カフェを探しにいこう</p>
     <%= form_with(url: shops_path, method: :get, scope: :search, local: true, class: "search_form") do |f| %>
       <%= f.text_field :address, class: "form-control", id: "home_search_address", placeholder: "エリアで検索" %>
-      <%= f.submit "カフェを探す", class: "btn btn-primary" %>
+      <% f.submit %>
     <% end %>
   </div>
 </div>

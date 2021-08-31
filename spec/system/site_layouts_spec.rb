@@ -64,7 +64,7 @@ RSpec.describe "SiteLayouts", type: :system do
         it "ヘッダーとサイドバーに正しいリンクを表示する" do
           expect(page).to have_link "ANIMAL CAFE"
           expect(page).to have_link "Users", count: 2
-          expect(page).to have_link href: user_path(user), count: 2
+          expect(page).to have_link href: user_path(user), count: 3
           expect(page).to have_link "Log out", count: 2
           expect(page).to have_link href: new_shop_path
           expect(page).to have_link "New post"
@@ -136,7 +136,7 @@ RSpec.describe "SiteLayouts", type: :system do
           expect(current_path).to eq user_path(user)
           expect(page).to have_link "プロフィール編集"
           expect(page).to have_link "過去の投稿"
-          expect(page).to have_link "ピンした投稿"
+          expect(page).to have_link "ブックマーク"
         end
 
         describe "画面遷移" do
@@ -146,8 +146,16 @@ RSpec.describe "SiteLayouts", type: :system do
             expect(page).to have_title "Edit user | ANIMAL CAFE"
           end
 
-          it "過去の投稿リンクを押すと、そのページに遷移する"
-          it "ピンした投稿リンクを押すと、そのページに遷移する"
+          it "過去の投稿リンクを押すと、そのページに遷移する" do
+            click_link "過去の投稿"
+            expect(current_path).to eq user_path(user)
+            expect(page).to have_title "#{user.name} | ANIMAL CAFE"
+          end
+          it "ブックマークリンクを押すと、そのページに遷移する" do
+            click_link "ブックマーク"
+            expect(current_path).to eq bookmarking_user_path(user)
+            expect(page).to have_title "Bookmark shops | ANIMAL CAFE"
+          end
         end
       end
     end

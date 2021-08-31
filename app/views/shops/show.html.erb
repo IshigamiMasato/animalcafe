@@ -12,6 +12,7 @@
             <%= image_tag "noimage.png" %>
           <% end %>
         </div>
+        <%= render "bookmark_form" if logged_in? %>
         <div class="shop_name"><%= @shop.name %></div>
         <i class="fas fa-map-marker-alt"></i><span><%= @shop.nearest_station %></span>
         <i class="far fa-clock"></i><span><%= @shop.started_at.strftime("%H:%M") %>~<%= @shop.closed_at.strftime("%H:%M") %></span>

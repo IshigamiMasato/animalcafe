@@ -1,0 +1,6 @@
+<%= form_with(model: current_user.bookmarks.find_by(shop_id: @shop.id),
+                     html: { method: :delete}, local: true) do |f| %>
+  <%= f.button type: "submit", class: "bookmark_btn" do %>
+    <i class="fas fa-bookmark bm"></i>
+  <% end %>
+<% end %>

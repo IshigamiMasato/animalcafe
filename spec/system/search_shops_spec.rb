@@ -14,6 +14,7 @@ RSpec.describe "SearchShops", type: :system do
     fill_in "search_address", with: ""
     click_button "検索"
     expect(current_path).to eq shops_path
+    expect(page).to have_title "Search shops | ANIMAL CAFE"
     expect(page).to have_content "検索結果: 0件"
 
     # 登録していない住所で検索

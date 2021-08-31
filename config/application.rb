@@ -33,5 +33,10 @@ module Animalcafe
     # 時刻設定
     config.time_zone = "Tokyo"
     config.active_record.default_timezone = :local
+
+    # form_withのremote: trueをdefaultに設定
+    config.action_view.form_with_generates_remote_forms = true
+    # 認証トークンをremoteフォームに埋め込む
+    config.action_view.embed_authenticity_token_in_remote_forms = true
   end
 end

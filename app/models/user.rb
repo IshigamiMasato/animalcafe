@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_many :shops, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarking, through: :bookmarks, source: :shop
+
   attr_accessor :remember_token, :activation_token, :reset_token
 
   # コールバック
@@ -88,6 +91,21 @@ class User < ApplicationRecord
   # パスワード再設定の期限が切れている場合はtrueを返す
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  # 店舗の投稿をブックマークする
+  def bookmark(shop)
+    bookmarking << shop
+  end
+
+  # ブックマークを解除する
+  def unbookmark(shop)
+    bookmarks.find_by(shop_id: shop.id).destroy
+  end
+
+  # 現在のユーザーがブックマークしてたらtrueを返す
+  def bookmarking?(shop)
+    bookmarking.include?(shop)
   end
 
   private

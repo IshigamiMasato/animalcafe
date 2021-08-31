@@ -1,0 +1,12 @@
+<% if @shops.any? %>
+  <div class="container shop_index_frame_wrap">
+    <div class="shop_index_frame">
+      <p><%= yield(:result_text) %>: <%= @shops.count %>件</p>
+      <ol class="shops">
+        <%= render @shops %>
+      </ol>
+    </div>
+  </div>
+<% else %>
+  <p><%= yield(:result_text) %>: 0件</p>
+<% end %>

@@ -1,5 +1,6 @@
 class Shop < ApplicationRecord
   belongs_to :user
+  has_many :bookmarks, dependent: :destroy
 
   # shopの並び順
   default_scope -> { order(created_at: :desc) }

@@ -92,4 +92,23 @@ RSpec.describe User, type: :model do
   it "authenticated?メソッドは、remember_digestがnilならfalseを返す" do
     expect(user.authenticated?(:remember, "")).to eq false
   end
+
+  describe "bookmark,unbookmarkとbookmarking?メソッドのテスト" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:other_user) { FactoryBot.create(:user) }
+    let!(:shop) { FactoryBot.create(:shop, user: other_user) }
+
+    it "bookmarkすると、bookmarkに登録する" do
+      expect(user.bookmarking?(shop)).to eq false
+      user.bookmark(shop)
+      expect(user.bookmarking?(shop)).to eq true
+    end
+
+    it "unbookmarkすると、bookmarkから削除する" do
+      user.bookmark(shop)
+      expect(user.bookmarking?(shop)).to eq true
+      user.unbookmark(shop)
+      expect(user.bookmarking?(shop)).to eq false
+    end
+  end
 end
