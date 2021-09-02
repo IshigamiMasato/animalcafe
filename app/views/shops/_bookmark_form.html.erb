@@ -1,9 +1,9 @@
 <% unless current_user?(@shop.user) %>
   <div id="bookmark_form">
     <% if current_user.bookmarking?(@shop) %>
-      <%= render "unbookmark" %>
+      <%= render "shops/unbookmark" %>
     <% else %>
-      <%= render "bookmark" %>
+      <%= render "shops/bookmark" %>
     <% end %>
   </div>
 <% end %>

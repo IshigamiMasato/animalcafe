@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :shops, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarking, through: :bookmarks, source: :shop
+  has_many :reviews, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token
 

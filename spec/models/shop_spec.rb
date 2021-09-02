@@ -110,4 +110,33 @@ RSpec.describe Shop, type: :model do
       expect(Shop.first).to eq most_recent_post
     end
   end
+
+  describe "avg_scoreとavg_score_percentageメソッドのテスト" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:other_user) { FactoryBot.create(:user) }
+    let!(:shop) { FactoryBot.create(:shop, user: other_user) }
+
+    context "クチコミがある場合" do
+      let!(:review) { FactoryBot.create(:review, score: 5, user: user, shop: shop) }
+      let!(:other_review) { FactoryBot.create(:review, score: 3, user: user, shop: shop) }
+
+      it "avg_scoreは、その店舗のクチコミの平均点を少数第一位まで返す" do
+        expect(shop.avg_score).to eq 4.0
+      end
+
+      it "avg_score_percentageは、その店舗のクチコミの平均点を100分率で返す" do
+        expect(shop.avg_score_percentage).to eq 80.0
+      end
+    end
+
+    context "クチコミがない場合" do
+      it "avg_scoreクチコミがない場合は、0.0を返す" do
+        expect(shop.avg_score).to eq 0.0
+      end
+
+      it "avg_score_percentageは、クチコミがない場合は0.0を返す" do
+        expect(shop.avg_score_percentage).to eq 0.0
+      end
+    end
+  end
 end

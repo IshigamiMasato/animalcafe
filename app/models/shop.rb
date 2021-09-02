@@ -1,6 +1,7 @@
 class Shop < ApplicationRecord
   belongs_to :user
   has_many :bookmarks, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   # shopの並び順
   default_scope -> { order(created_at: :desc) }
@@ -48,4 +49,22 @@ class Shop < ApplicationRecord
               max: 4,
               message: "は最大4枚までです",
             }
+
+  # 店舗レビューの平均点
+  def avg_score
+    if reviews.empty?
+      0.0
+    else
+      reviews.average(:score).round(1).to_f
+    end
+  end
+
+  # 店舗レビューの平均の割合
+  def avg_score_percentage
+    if reviews.empty?
+      0.0
+    else
+      reviews.average(:score).round(1).to_f / 5 * 100
+    end
+  end
 end

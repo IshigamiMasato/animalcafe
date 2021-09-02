@@ -1,0 +1,25 @@
+<div class="rating_box">
+  <%= form_with(model: @review, url: shop_reviews_path(@shop), local: true) do |f| %>
+    <%= render "shared/error_messages", object: f.object %>
+
+    <div class="main_rating">
+      <div class="ratings">
+        <span class="far fa-star"></span>
+        <span class="far fa-star"></span>
+        <span class="far fa-star"></span>
+        <span class="far fa-star"></span>
+        <span class="far fa-star"></span>
+      </div>
+      <div class="rating_value_display">
+        <span id="rating_value_display">0</span>/5
+      </div>
+    </div>
+    <%= f.hidden_field :shop_id, value: @shop.id %>
+    <%= f.hidden_field :score, id: "rating_value" %>
+    <%= f.text_area :content %>
+
+    <%= f.submit "クチコミする", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<%= javascript_pack_tag "review/star_rating.js" %>

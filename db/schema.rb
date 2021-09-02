@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_31_031557) do
+ActiveRecord::Schema.define(version: 2021_09_02_012603) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,17 @@ ActiveRecord::Schema.define(version: 2021_08_31_031557) do
     t.index ["shop_id"], name: "index_bookmarks_on_shop_id"
     t.index ["user_id", "shop_id"], name: "index_bookmarks_on_user_id_and_shop_id", unique: true
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "shop_id", null: false
+    t.string "content"
+    t.integer "score", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_id"], name: "index_reviews_on_shop_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "shops", force: :cascade do |t|
@@ -90,5 +101,7 @@ ActiveRecord::Schema.define(version: 2021_08_31_031557) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "reviews", "shops"
+  add_foreign_key "reviews", "users"
   add_foreign_key "shops", "users"
 end

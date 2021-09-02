@@ -3,6 +3,7 @@ ja:
     models:
       user:
       shop:
+      review:
     attributes:
       user:
         name: 名前
@@ -23,3 +24,6 @@ ja:
         description: 店舗紹介
         user: ユーザー
         images: 画像
+      review:
+        score: 点数
+        content: コメント
