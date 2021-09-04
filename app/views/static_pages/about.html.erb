@@ -1,2 +1,14 @@
 <% provide(:title, "About") %>
-<h1>What is an animal cafe?</h1>
+<div class="explanation_wrap center">
+  <h1 class="main_title">What is ANIMAL CAFE?</h1>
+  <h4>animal cafeは動物カフェを共有するサービスです。</h4>
+  <h4>動物カフェを探すのに、まとめサイトが欲しいという声からanimal cafeを作成しました。</h4>
+  <h4>自分が行ったお店を投稿することで、動物カフェを手軽に共有することができます。</h4>
+  <h4>今度の休日、動物に癒されにカフェに行きたい</h4>
+  <h4>自分が行った動物カフェを共有したい時などに</h4>
+  <h4>animal cafeをぜひご利用ください</h4>
+  <h1 class="fas fa-angle-double-down"></h1>
+  <h4>
+    <%= link_to icon("fas", "paw", "新規登録する"), signup_path, class: "btn btn-primary" %>
+  </h4>
+</div>

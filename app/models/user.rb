@@ -10,30 +10,29 @@ class User < ApplicationRecord
   before_validation :downcase_email
   before_create :create_activation_digest
 
-  # active_storage関連
+  # active_storage
   has_one_attached :avater
   validates :avater,
-            content_type: { # 画像フォーマットのバリデーション
+            content_type: {
               in: %w(image/jpeg image/gif image/png),
               message: "のフォーマットが無効です",
             },
-            size: { # 画像サイズのバリデーション
+            size: {
               less_than: 5.megabytes,
               message: "は5MB未満のファイルを選択してください",
             }
 
-  # バリデーション
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
 
-  # has_secure_password関連
+  # has_secure_password
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
-  # 渡された文字列のハッシュ値を返す has_secure_passwordで使われている
+  # 渡された文字列のハッシュ値を返す has_secure_passwordで使用
   def User.digest(string)
     cost = if ActiveModel::SecurePassword.min_cost
              BCrypt::Engine::MIN_COST

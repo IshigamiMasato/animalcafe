@@ -13,7 +13,7 @@ RSpec.describe "paginationレイアウトとユーザー削除のテスト", typ
       expect(current_path).to eq users_path
       expect(page).to_not have_link non_activated_user.name, href: user_path(non_activated_user)
       expect(page).to have_css "div.pagination", count: 2
-      first_page_of_users = User.where(activated: true).paginate(page: 1)
+      first_page_of_users = User.where(activated: true).paginate(page: 1, per_page: 20)
       first_page_of_users.each do |user|
         expect(page).to have_link user.name
         unless user == admin_user

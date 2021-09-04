@@ -7,6 +7,9 @@
       </ol>
     </div>
   </div>
+  <div class="paginate_center">
+    <%= will_paginate @shops %>
+  </div>
 <% else %>
   <p><%= yield(:result_text) %>: 0件</p>
 <% end %>

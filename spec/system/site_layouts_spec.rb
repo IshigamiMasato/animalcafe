@@ -7,13 +7,13 @@ RSpec.describe "SiteLayouts", type: :system do
 
       it "ヘッダーとサイドバーに正しいリンクを表示する" do
         expect(page).to have_link "ANIMAL CAFE"
-        expect(page).to have_link "What is an animal cafe?"
+        expect(page).to have_link "What is animal cafe?"
         expect(page).to have_link "Log in", count: 2
         expect(page).to have_link "Sign up now!", count: 2
       end
 
       it "What is an animal cafe?リンクを押すと、aboutページに遷移する" do
-        click_link "What is an animal cafe?"
+        click_link "What is animal cafe?"
         expect(current_path).to eq about_path
         expect(page).to have_title "About | ANIMAL CAFE"
       end

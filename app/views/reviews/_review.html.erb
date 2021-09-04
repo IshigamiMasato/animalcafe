@@ -1,20 +1,22 @@
-<div class="review_box">
-  <div class="reviewer_info">
-    <% if review.user.avater.attached? %>
-      <%= image_tag review.user.avater.variant(resize_to_fill: [30, 30]), class: "reviewer_avater" %>
-    <% else %>
-      <%= image_tag "default.png", class: "default_reviewer_avater" %>
-    <% end %>
-    <%= review.user.name %>
-  </div>
-  <div class="reviewer_score_wrap">
-    <div class="reviewer_score">
-      <div class="score_front" style="width: <%= score_percentage(review.score) %>%">★★★★★</div>
-      <div class="score_back">★★★★★</div>
+<li id="review-<%= review.id %>">
+  <div class="review_box">
+    <div class="reviewer_info">
+      <% if review.user.avater.attached? %>
+        <%= image_tag review.user.avater.variant(resize_to_fill: [25, 25]), class: "reviewer_avater" %>
+      <% else %>
+        <%= image_tag "default.png", class: "default_reviewer_avater" %>
+      <% end %>
+      <%= review.user.name %>
     </div>
-    <div class="score_timestamp"><%= time_ago_in_words(review.created_at) %>前</div>
+    <div class="reviewer_score_wrap">
+      <div class="reviewer_score">
+        <div class="score_front" style="width: <%= score_percentage(review.score) %>%">★★★★★</div>
+        <div class="score_back">★★★★★</div>
+      </div>
+      <div class="score_timestamp"><%= time_ago_in_words(review.created_at) %>前</div>
+    </div>
+    <div class="review_content">
+      <%= review.content %>
+    </div>
   </div>
-  <div class="review_content">
-    <%= review.content %>
-  </div>
-</div>
+</li>

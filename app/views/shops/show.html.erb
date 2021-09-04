@@ -27,7 +27,7 @@
         <div class="poster_link">投稿者:
           <%= link_to @shop.user do %>
             <% if @shop.user.avater.attached? %>
-              <%= image_tag @shop.user.avater.variant(resize_to_fill: [15, 15]), class: "poster_avater_link" %>
+              <%= image_tag @shop.user.avater.variant(resize_to_fill: [20, 20]), class: "poster_avater_link" %>
             <% else %>
               <%= image_tag "default.png", class: "default_avater_link" %>
             <% end %>
@@ -76,16 +76,18 @@
       </div>
     </div>
     <div class="col-sm-5 review_area">
-      <p>クチコミを投稿してみましょう!</p>
+      <p><i class="far fa-comment"></i>クチコミを投稿してみましょう</p>
       <%= render "reviews/form" %>
-      <% if @reviews.any? %>
-        <div class="reviews_frame">
-          <div>クチコミ: <%= @reviews.count %>件</div>
-          <%= render @reviews %>
-        </div>
-      <% else %>
-        <p>クチコミ: 0件</p>
-      <% end %>
+      <div class="reviews_frame">
+        <% if @reviews.any? %>
+          <div>クチコミ: <%= @shop.reviews.count %>件</div>
+          <ol class="reviews">
+            <%= render @reviews %>
+          </ol>
+        <% else %>
+          <div>クチコミ: 0件</div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

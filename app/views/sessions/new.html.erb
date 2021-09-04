@@ -4,20 +4,21 @@
 <div class="login_frame">
   <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
 
-    <%= f.label :email %>
+    <%= f.label :email, "メールアドレス" %>
+    <small>(テストユーザの方は「test_user@example.org」をご利用ください)</small>
     <%= f.email_field :email, class: "form-control" %>
 
-    <%= f.label :password %>
-    <%= link_to "(forgot password)", new_password_reset_path %>
+    <%= f.label :password, "パスワード" %><small>(テストユーザの方は「password」をご利用ください)</small>
+    <br><%= link_to "(パスワードをお忘れですか？)", new_password_reset_path %>
     <%= f.password_field :password, class: "form-control" %>
 
     <%= f.label :remember_me, class: "checkbox" do %>
       <%= f.check_box :remember_me %>
-      <span>Remember me on this computer</span>
+      <span>ログイン状態を保持する</span>
     <% end %>
 
     <%= f.submit "Log in", class: "btn btn-primary" %>
   <% end %>
 
-  <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+  <p><%= link_to "新規登録はこちら", signup_path %></p>
 </div>

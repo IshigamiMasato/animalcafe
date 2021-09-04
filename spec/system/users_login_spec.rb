@@ -11,8 +11,8 @@ RSpec.describe "UsersLogin", type: :system do
     expect(current_path).to eq login_path
 
     # 有効なメールアドレスと、無効なパスワードをログイン情報に入力した場合
-    fill_in "Email", with: user.email
-    fill_in "Password", with: "invalid"
+    fill_in "メールアドレス", with: user.email
+    fill_in "パスワード", with: "invalid"
     click_button "Log in"
 
     expect(page).to have_selector "div.alert-danger"
@@ -34,8 +34,8 @@ RSpec.describe "UsersLogin", type: :system do
     click_link "Log in", match: :first
     expect(current_path).to eq login_path
 
-    fill_in "Email", with: ""
-    fill_in "Password", with: ""
+    fill_in "メールアドレス", with: ""
+    fill_in "パスワード", with: ""
     click_button "Log in"
 
     expect(page).to have_selector "div.alert-danger"
@@ -57,8 +57,8 @@ RSpec.describe "UsersLogin", type: :system do
     click_link "Log in", match: :first
     expect(current_path).to eq login_path
 
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
+    fill_in "メールアドレス", with: user.email
+    fill_in "パスワード", with: user.password
     click_button "Log in"
 
     expect(current_path).to eq user_path(user)

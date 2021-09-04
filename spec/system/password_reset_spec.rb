@@ -9,17 +9,17 @@ RSpec.describe "PasswordReset", type: :system do
 
     click_link "Log in", match: :first
     expect(current_path).to eq login_path
-    click_link "(forgot password)"
+    click_link "(パスワードをお忘れですか？)"
     expect(current_path).to eq new_password_reset_path
 
     # 無効なメールアドレスを送信
-    fill_in "Email", with: ""
+    fill_in "メールアドレス", with: ""
     click_button "Submit"
 
     expect(page).to have_selector "div.alert-danger"
 
     # 有効なメールアドレスを送信
-    fill_in "Email", with: user.email
+    fill_in "メールアドレス", with: user.email
     click_button "Submit"
 
     expect(page).to have_selector "div.alert-info"

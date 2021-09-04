@@ -3,7 +3,6 @@ class Shop < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
-  # shopの並び順
   default_scope -> { order(created_at: :desc) }
 
   # 検索メソッド
@@ -14,11 +13,10 @@ class Shop < ApplicationRecord
 
   scope :address_like, -> (address) { where("address LIKE ?", "%#{address}%") }
 
-  # geocode関連
+  # geocode
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
 
-  # バリデーション
   validates :user_id, presence: true
   validates :name, presence: true,
                    length: { maximum: 50 },
@@ -34,7 +32,7 @@ class Shop < ApplicationRecord
   validates :description, presence: true,
                           length: { maximum: 300 }
 
-  # active_storage関連
+  # active_storage
   has_many_attached :images
   validates :images,
             content_type: {

@@ -1,12 +1,14 @@
 <div class="top_main">
   <div class="home_search_area">
-    <p>動物カフェを探しにいこう</p>
+    <div class="search_area_word">
+      <p>動物カフェを探しにいこう</p>
+    </div>
     <%= form_with(url: shops_path, method: :get, scope: :search, local: true, class: "search_form") do |f| %>
       <%= f.text_field :address, class: "form-control", id: "home_search_address", placeholder: "エリアで検索" %>
       <% f.submit %>
     <% end %>
+    <div class="explanation_link_wrap">
+      <%= link_to "What is animal cafe?", about_path, class: "explanation_link" %>
+    </div>
   </div>
 </div>
-<% unless logged_in? %>
-  <%= link_to "What is an animal cafe?", about_path %>
-<% end %>

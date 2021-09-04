@@ -3,7 +3,7 @@ class ShopsController < ApplicationController
   before_action :correct_shop_poster, only: [:edit, :update, :destroy]
 
   def index
-    @shops = Shop.search(user_search_params)
+    @shops = Shop.search(user_search_params).paginate(page: params[:page], per_page: 5)
   end
 
   def new
@@ -13,7 +13,7 @@ class ShopsController < ApplicationController
   def show
     @shop = Shop.find(params[:id])
     @review = Review.new
-    @reviews = @shop.reviews
+    @reviews = @shop.reviews.limit(10)
   end
 
   def create

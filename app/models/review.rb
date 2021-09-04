@@ -4,6 +4,5 @@ class Review < ApplicationRecord
   validates :content, length: { maximum: 255 }
   validates :score, presence: true
 
-  # reviewの並び順
   default_scope -> { order(created_at: :desc) }
 end

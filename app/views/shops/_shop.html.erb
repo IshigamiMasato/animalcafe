@@ -11,6 +11,14 @@
     </div>
     <div class="col-sm-6">
       <div class="shop_name"><%= link_to shop.name, shop %></div>
+      <div class="avg_score_wrap">
+        <div class="avg_score_value"><%= shop.avg_score %></div>
+        <div class="avg_score">
+          <div class="avg_score_front" style="width: <%= shop.avg_score_percentage %>%">★★★★★</div>
+          <div class="avg_score_back">★★★★★</div>
+        </div>
+        <div class="review_count">クチコミ: <%= shop.reviews.count %>件</div>
+      </div>
       <div>
         <i class="fas fa-map-marker-alt"></i><span><%= shop.nearest_station %></span>
         <i class="far fa-clock"></i><span><%= shop.started_at.strftime("%H:%M") %>~<%= shop.closed_at.strftime("%H:%M") %></span>
