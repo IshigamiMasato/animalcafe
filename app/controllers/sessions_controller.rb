@@ -25,4 +25,11 @@ class SessionsController < ApplicationController
     log_out if logged_in?
     redirect_to root_url
   end
+
+  def guest_login
+    user = User.guest
+    log_in(user)
+    flash[:success] = "login as a test user"
+    redirect_to user
+  end
 end

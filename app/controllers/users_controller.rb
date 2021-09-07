@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :bookmarking]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
+  before_action :ensure_normal_user, only: :update
 
   def index
     @users = User.where(activated: true).paginate(page: params[:page], per_page: 20)
@@ -71,5 +72,13 @@ class UsersController < ApplicationController
 
   def admin_user
     redirect_to(root_url) unless current_user.admin?
+  end
+
+  def ensure_normal_user
+    @user ||= User.find(params[:id])
+    if @user.email == "guest_user@example.com"
+      flash[:warning] = "Guest user cannot edit"
+      redirect_to root_url
+    end
   end
 end

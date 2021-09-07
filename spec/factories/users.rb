@@ -23,4 +23,13 @@ FactoryBot.define do
     password { "foo" }
     password_confirmation { "bar" }
   end
+
+  factory :guest_user, class: "User" do
+    name { "Guest User" }
+    email { "guest_user@example.com" }
+    password { "foobar" }
+    password_confirmation { "foobar" }
+    activated { true }
+    activated_at { Time.zone.now }
+  end
 end

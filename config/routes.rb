@@ -17,4 +17,5 @@ Rails.application.routes.draw do
     resources :reviews, only: [:create]
   end
   resources :bookmarks, only: [:create, :destroy]
+  post "/guest_login", to: "sessions#guest_login"
 end

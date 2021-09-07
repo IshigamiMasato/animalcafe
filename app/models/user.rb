@@ -47,6 +47,16 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
+  # テストユーザー作成または検索用のメソッド
+  def User.guest
+    find_or_create_by!(email: "guest_user@example.com") do |user|
+      user.name = "Guest User"
+      user.password = SecureRandom.urlsafe_base64
+      user.activated = true
+      user.activated_at = Time.zone.now
+    end
+  end
+
   # 永続セッションのために、ユーザーのdbにハッシュ化した記憶トークンをいれる
   def remember
     self.remember_token = User.new_token
