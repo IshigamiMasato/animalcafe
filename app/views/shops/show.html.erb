@@ -34,6 +34,12 @@
             <%= @shop.user.name %>
           <% end %>
         </div>
+        <div class="shop_tags_area">
+          <i class="fas fa-tags"></i>
+          <% @tags.each do |tag| %>
+            <%= link_to tag.name, tag_shops_path(tag) %>
+          <% end %>
+        </div>
         <p>このカフェについて</p>
         <div class="description"><%= @shop.description %></div>
         <table border="1" cellpadding="5">

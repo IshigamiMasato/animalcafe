@@ -3,7 +3,7 @@ class ShopsController < ApplicationController
   before_action :correct_shop_poster, only: [:edit, :update, :destroy]
 
   def index
-    @shops = Shop.search(user_search_params).paginate(page: params[:page], per_page: 5)
+    @shops = Shop.search(user_search_params).includes(:reviews, :user).paginate(page: params[:page], per_page: 5)
   end
 
   def new
@@ -12,13 +12,18 @@ class ShopsController < ApplicationController
 
   def show
     @shop = Shop.find(params[:id])
+    @tags = @shop.tags
     @review = Review.new
     @reviews = @shop.reviews.limit(10)
   end
 
   def create
     @shop = current_user.shops.build(shop_params)
+    animal_tags = params[:shop][:tag_animal].split(" ") if params[:shop][:tag_animal].present?
+    env_tags = params[:shop][:tag_env].split(" ") if params[:shop][:tag_env].present?
     if @shop.save
+      @shop.save_animal_tag(animal_tags) if animal_tags.present?
+      @shop.save_env_tag(env_tags) if env_tags.present?
       flash[:success] = "Shop created!"
       redirect_to @shop
     else
@@ -30,7 +35,11 @@ class ShopsController < ApplicationController
   end
 
   def update
+    animal_tags = params[:shop][:tag_animal].split(" ") if params[:shop][:tag_animal].present?
+    env_tags = params[:shop][:tag_env].split(" ") if params[:shop][:tag_env].present?
     if @shop.update(shop_params)
+      @shop.save_animal_tag(animal_tags) if animal_tags.present?
+      @shop.save_env_tag(env_tags) if env_tags.present?
       flash[:success] = "Shop updated"
       redirect_to @shop
     else
@@ -42,6 +51,12 @@ class ShopsController < ApplicationController
     @shop.destroy
     flash[:success] = "Shop deleted"
     redirect_to @shop.user
+  end
+
+  def tag_search
+    tag = Tag.find(params[:tag_id])
+    @shops = tag.shops.paginate(page: params[:page], per_page: 5)
+    render "index" and return
   end
 
   private

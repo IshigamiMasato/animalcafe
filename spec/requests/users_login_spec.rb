@@ -27,12 +27,12 @@ RSpec.describe "UsersLogin", type: :request do
         expect(is_logged_in?).to eq true
       end
 
-      it "profileページにリダイレクトする" do
+      it "店舗一覧ページにリダイレクトする" do
         user = FactoryBot.create(:user)
         post login_path, params: { session: { email: user.email,
                                               password: user.password,
         } }
-        expect(response).to redirect_to user
+        expect(response).to redirect_to shops_url
       end
 
       context "パラメータが有効で、ユーザーが無効な場合" do

@@ -64,7 +64,7 @@ RSpec.describe "SiteLayouts", type: :system do
         it "ヘッダーとサイドバーに正しいリンクを表示する" do
           expect(page).to have_link "ANIMAL CAFE"
           expect(page).to have_link "Users", count: 2
-          expect(page).to have_link href: user_path(user), count: 3
+          expect(page).to have_link href: user_path(user), count: 2
           expect(page).to have_link "Log out", count: 2
           expect(page).to have_link href: new_shop_path
           expect(page).to have_link "New post"
@@ -133,6 +133,8 @@ RSpec.describe "SiteLayouts", type: :system do
 
       describe "profileページのレイアウト" do
         it "profileページに正しいリンクを表示する" do
+          expect(current_path).to eq shops_path
+          find(".user_icon").click
           expect(current_path).to eq user_path(user)
           expect(page).to have_link "プロフィール編集"
           expect(page).to have_link "過去の投稿"
@@ -141,17 +143,27 @@ RSpec.describe "SiteLayouts", type: :system do
 
         describe "画面遷移" do
           it "プロフィール編集リンクを押すと、profileページに遷移する" do
+            expect(current_path).to eq shops_path
+            find(".user_icon").click
+            expect(current_path).to eq user_path(user)
             click_link "プロフィール編集"
             expect(current_path).to eq edit_user_path(user)
             expect(page).to have_title "Edit user | ANIMAL CAFE"
           end
 
-          it "過去の投稿リンクを押すと、そのページに遷移する" do
+          it "過去の投稿リンクを押すと、profileページに遷移する" do
+            expect(current_path).to eq shops_path
+            find(".user_icon").click
+            expect(current_path).to eq user_path(user)
             click_link "過去の投稿"
             expect(current_path).to eq user_path(user)
             expect(page).to have_title "#{user.name} | ANIMAL CAFE"
           end
-          it "ブックマークリンクを押すと、そのページに遷移する" do
+
+          it "ブックマークリンクを押すと、ブックマークページに遷移する" do
+            expect(current_path).to eq shops_path
+            find(".user_icon").click
+            expect(current_path).to eq user_path(user)
             click_link "ブックマーク"
             expect(current_path).to eq bookmarking_user_path(user)
             expect(page).to have_title "Bookmark shops | ANIMAL CAFE"

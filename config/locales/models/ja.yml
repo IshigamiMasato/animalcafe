@@ -4,6 +4,7 @@ ja:
       user:
       shop:
       review:
+      tag:
     attributes:
       user:
         name: 名前
@@ -24,6 +25,11 @@ ja:
         description: 店舗紹介
         user: ユーザー
         images: 画像
+        tag_animal: 動物の種類
+        tag_env: 設備
       review:
         score: 点数
         content: コメント
+      tag:
+        name: タグ名
+        tag_type: 属性

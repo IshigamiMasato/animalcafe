@@ -3,6 +3,14 @@ require 'rails_helper'
 RSpec.describe "ShopsEdit", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let!(:shop) { FactoryBot.create(:shop, user: user) }
+  let(:tag1) { FactoryBot.create(:tag, name: "犬", tag_type: "animal") }
+  let(:tag2) { FactoryBot.create(:tag, name: "柴犬", tag_type: "animal") }
+  let(:tag3) { FactoryBot.create(:tag, name: "wifiあり", tag_type: "env") }
+  let(:tag4) { FactoryBot.create(:tag, name: "コンセントあり", tag_type: "env") }
+  let!(:tag_map1) { FactoryBot.create(:tag_map, shop: shop, tag: tag1) }
+  let!(:tag_map2) { FactoryBot.create(:tag_map, shop: shop, tag: tag2) }
+  let!(:tag_map3) { FactoryBot.create(:tag_map, shop: shop, tag: tag3) }
+  let!(:tag_map4) { FactoryBot.create(:tag_map, shop: shop, tag: tag4) }
 
   it "投稿した店舗を編集する" do
     # ログインする前
@@ -13,7 +21,7 @@ RSpec.describe "ShopsEdit", type: :system do
 
     # ログインした後
     log_in_as(user)
-    expect(current_path).to eq user_path(user)
+    expect(current_path).to eq shops_path
 
     expect(page).to have_link "update"
     click_link "update"
@@ -45,6 +53,8 @@ RSpec.describe "ShopsEdit", type: :system do
     fill_in "最寄り駅", with: "豊洲駅"
     fill_in "予算(下)", with: "500"
     fill_in "予算(上)", with: "1500"
+    fill_in "動物の種類", with: "柴犬 ゴールデンレトリバー"
+    fill_in "設備", with: "クレジット可"
     fill_in "店舗紹介", with: "a" * 300
     click_button "Save changes"
 
@@ -62,5 +72,8 @@ RSpec.describe "ShopsEdit", type: :system do
     expect(shop.low_budget).to eq 500
     expect(shop.high_budget).to eq 1500
     expect(shop.description).to eq "a" * 300
+    expect(shop.tags.count).to eq 3
+    expect(shop.tags.where(tag_type: "animal").pluck(:name)).to eq ["柴犬", "ゴールデンレトリバー"]
+    expect(shop.tags.where(tag_type: "env").pluck(:name)).to eq ["クレジット可"]
   end
 end

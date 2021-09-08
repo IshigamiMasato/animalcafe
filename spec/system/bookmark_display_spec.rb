@@ -21,6 +21,8 @@ RSpec.describe "BookmarkDisplay", type: :system do
 
   it "ブックマークのpaginateのテスト" do
     log_in_as(user)
+    expect(current_path).to eq shops_path
+    find(".user_icon").click
     expect(current_path).to eq user_path(user)
     click_link "ブックマーク"
     expect(current_path).to eq bookmarking_user_path(user)

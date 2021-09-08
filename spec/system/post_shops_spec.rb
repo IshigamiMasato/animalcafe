@@ -13,7 +13,7 @@ RSpec.describe "PostShops", type: :system do
 
     # ログイン後
     log_in_as(user)
-    expect(current_path).to eq user_path(user)
+    expect(current_path).to eq shops_path
     within ".navbar-right" do # ログインしていることを確認
       expect(page).to_not have_link "Log in"
       expect(page).to have_link "Log out"
@@ -71,16 +71,29 @@ RSpec.describe "PostShops", type: :system do
       fill_in "予算(下)", with: 1000
       fill_in "予算(上)", with: 2000
       fill_in "店舗紹介", with: "a" * 300
+      fill_in "動物の種類", with: "犬 柴犬 ゴールデンレトリバー"
+      fill_in "設備", with: "wifiあり コンセントあり"
       attach_file("shop_images", "#{Rails.root}/spec/fixtures/test.jpg")
       click_button "Post shop"
     }.to change(Shop, :count).by(1)
 
     shop = Shop.first # scopeを降順に設定しているため
+    # タグ付けがされている
+    expect(shop.tags.count).to eq 5
+    expect(shop.tags.where(tag_type: "animal").pluck(:name)).to eq ["犬", "柴犬", "ゴールデンレトリバー"]
+    expect(shop.tags.where(tag_type: "env").pluck(:name)).to eq ["wifiあり", "コンセントあり"]
     expect(current_path).to eq shop_path(shop)
     expect(page).to have_selector "div.alert-success"
 
+    # rootページのtagリンクを押す
+    visit root_path
+    click_link "柴犬"
+    click_link shop.name
+    expect(current_path).to eq shop_path(shop)
+
     # 投稿を削除する
-    find(".user_icon").click
+    # 投稿者をクリック
+    click_link user.name
     expect(current_path).to eq user_path(user)
 
     expect(page).to have_link "delete"

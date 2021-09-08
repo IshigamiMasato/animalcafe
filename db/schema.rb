@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_02_012603) do
+ActiveRecord::Schema.define(version: 2021_09_07_052144) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -83,6 +83,22 @@ ActiveRecord::Schema.define(version: 2021_09_02_012603) do
     t.index ["user_id"], name: "index_shops_on_user_id"
   end
 
+  create_table "tag_maps", force: :cascade do |t|
+    t.integer "shop_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_id"], name: "index_tag_maps_on_shop_id"
+    t.index ["tag_id"], name: "index_tag_maps_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "tag_type", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -104,4 +120,6 @@ ActiveRecord::Schema.define(version: 2021_09_02_012603) do
   add_foreign_key "reviews", "shops"
   add_foreign_key "reviews", "users"
   add_foreign_key "shops", "users"
+  add_foreign_key "tag_maps", "shops"
+  add_foreign_key "tag_maps", "tags"
 end

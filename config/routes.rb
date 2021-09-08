@@ -18,4 +18,7 @@ Rails.application.routes.draw do
   end
   resources :bookmarks, only: [:create, :destroy]
   post "/guest_login", to: "sessions#guest_login"
+  resources :tags do
+    get :shops, to: "shops#tag_search"
+  end
 end

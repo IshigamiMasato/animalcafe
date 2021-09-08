@@ -61,7 +61,7 @@ RSpec.describe "UsersLogin", type: :system do
     fill_in "パスワード", with: user.password
     click_button "Log in"
 
-    expect(current_path).to eq user_path(user)
+    expect(current_path).to eq shops_path
     within ".navbar-right" do # ログインしていることを確認
       expect(page).to_not have_link "Log in"
       expect(page).to have_link "Log out"

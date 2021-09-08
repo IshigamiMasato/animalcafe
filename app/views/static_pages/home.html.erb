@@ -12,3 +12,29 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-sm-5">
+    <div class="app_explanation_area">
+      <h3>animalcafeへようこそ!</h3>
+      <p>animalcafeは動物カフェを共有できるサービスです。</p>
+      <p>行った動物カフェを手軽に投稿し共有することができます。</p>
+      <p>また近くの動物カフェを検索して見つけることができます。</p>
+      <p>検索して気になったお店にはブックマークを<i class="fas fa-bookmark"></i></p>
+      <p>実際に行ったお店にはクチコミを投稿できます<i class="far fa-comment"></i></p>
+      <%= link_to icon("fas", "paw", "新規登録する"), signup_path, class: "btn btn-primary top_signup_btn" %>
+    </div>
+  </div>
+  <div class="col-sm-7">
+    <div class="tag_search_area">
+      <h2><i class="fas fa-tags"></i>タグから動物カフェを探す</h2>
+      <% @animal_tags.each do |tag| %>
+        <% tag_name = "#{tag.name}(#{tag.shops.count})" %>
+        <%= link_to tag_name, tag_shops_path(tag) %>
+      <% end %>
+      <% @env_tags.each do |tag| %>
+        <% tag_name = "#{tag.name}(#{tag.shops.count})" %>
+        <%= link_to tag_name, tag_shops_path(tag) %>
+      <% end %>
+    </div>
+  </div>
+</div>

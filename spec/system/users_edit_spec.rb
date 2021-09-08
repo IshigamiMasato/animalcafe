@@ -5,6 +5,8 @@ RSpec.describe "UsersEdit", type: :system do
 
   it "ユーザーを編集する" do
     log_in_as(user)
+    expect(current_path).to eq shops_path
+    find(".user_icon").click
     expect(current_path).to eq user_path(user)
 
     click_link "プロフィール編集"

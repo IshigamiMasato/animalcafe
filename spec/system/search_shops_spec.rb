@@ -14,12 +14,12 @@ RSpec.describe "SearchShops", type: :system do
     visit root_path
     expect(current_path).to eq root_path
 
-    # 空文字で検索
+    # 空文字で検索する
     fill_in "search_address", with: ""
     click_button "検索"
     expect(current_path).to eq shops_path
     expect(page).to have_title "Search shops | ANIMAL CAFE"
-    expect(page).to have_content "検索結果: 0件"
+    expect(page).to have_content "検索結果: 7件"
 
     # 登録していない住所で検索
     fill_in "search_address", with: "北海道"
@@ -57,6 +57,8 @@ RSpec.describe "SearchShops", type: :system do
 
     # profileページの過去の投稿の部分にpaginateがある
     log_in_as(user)
+    expect(current_path).to eq shops_path
+    find(".user_icon").click
     expect(current_path).to eq user_path(user)
     expect(page).to have_content "過去の投稿: 7件"
     expect(page).to have_css "div.pagination"

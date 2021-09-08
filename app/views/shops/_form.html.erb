@@ -47,7 +47,13 @@
   <%= f.label :description %>
   <%= f.text_area :description, class: "form-control", placeholder: "かわいい猫ちゃんがいます、人懐っこい子が多いです!お昼になると餌あげタイムもあります！" %>
 
-  <%= f.label :images %>
+  <%= f.label :tag_animal %><span>※半角スペースでタグ付けできます</span>
+  <%= f.text_field :tag_animal, class: "form-control", placeholder: "猫 マンチカン" %>
+
+  <%= f.label :tag_env %><span>※半角スペースでタグ付けできます</span>
+  <%= f.text_field :tag_env, class: "form-control", placeholder: "wifi コンセント 駅近" %>
+
+  <%= f.label :images, "画像(最大4枚)" %>
   <%= f.file_field :images, multiple: true, accept: "image/jpeg, image/gif, image/png" %>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>

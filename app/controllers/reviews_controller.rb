@@ -9,6 +9,7 @@ class ReviewsController < ApplicationController
     else
       @shop = Shop.find(params[:shop_id])
       @reviews = @shop.reviews
+      @tags = @shop.tags
       render "shops/show"
     end
   end

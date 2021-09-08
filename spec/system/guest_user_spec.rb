@@ -10,7 +10,7 @@ RSpec.describe "GuestUser", type: :system do
 
       click_link "ゲストログインはこちら"
       user = User.last
-      expect(current_path).to eq user_path(user)
+      expect(current_path).to eq shops_path
       expect(page).to have_selector "div.alert-success"
       within ".navbar-right" do # ログインしていることを確認
         expect(page).to_not have_link "Log in"
@@ -19,6 +19,8 @@ RSpec.describe "GuestUser", type: :system do
       end
 
       # ゲストユーザーはprofile編集できない
+      find(".user_icon").click
+      expect(current_path).to eq user_path(user)
       click_link "プロフィール編集"
       expect(current_path).to eq edit_user_path(user)
 
@@ -40,7 +42,7 @@ RSpec.describe "GuestUser", type: :system do
 
       click_link "ゲストログインはこちら"
       user = User.last
-      expect(current_path).to eq user_path(user)
+      expect(current_path).to eq shops_path
       expect(page).to have_selector "div.alert-success"
       within ".navbar-right" do # ログインしていることを確認
         expect(page).to_not have_link "Log in"

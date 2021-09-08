@@ -2,12 +2,14 @@ class Shop < ApplicationRecord
   belongs_to :user
   has_many :bookmarks, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :tag_maps, dependent: :destroy
+  has_many :tags, through: :tag_maps
 
   default_scope -> { order(created_at: :desc) }
 
   # 検索メソッド
   scope :search, -> (search_params) do
-    return [] if search_params[:address].blank?
+    return if search_params[:address].blank?
     address_like(search_params[:address])
   end
 
@@ -63,6 +65,42 @@ class Shop < ApplicationRecord
       0.0
     else
       reviews.average(:score).round(1).to_f / 5 * 100
+    end
+  end
+
+  # 動物のタグを保存する
+  def save_animal_tag(post_tags)
+    current_tags = tags.where(tag_type: "animal").pluck(:name) unless tags.nil?
+    old_tags = current_tags - post_tags
+    new_tags = post_tags - current_tags
+
+    old_tags.each do |old_tag|
+      tags.delete(Tag.find_by(name: old_tag))
+    end
+
+    new_tags.each do |new_tag|
+      post_tag = Tag.find_or_create_by(name: new_tag)
+      post_tag.tag_type = "animal"
+
+      tags << post_tag
+    end
+  end
+
+  # 設備のタグを保存する
+  def save_env_tag(post_tags)
+    current_tags = tags.where(tag_type: "env").pluck(:name) unless tags.nil?
+    old_tags = current_tags - post_tags
+    new_tags = post_tags - current_tags
+
+    old_tags.each do |old_tag|
+      tags.delete(Tag.find_by(name: old_tag))
+    end
+
+    new_tags.each do |new_tag|
+      post_tag = Tag.find_or_create_by(name: new_tag)
+      post_tag.tag_type = "env"
+
+      tags << post_tag
     end
   end
 end
