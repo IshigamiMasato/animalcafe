@@ -30,7 +30,7 @@ RSpec.describe "ShopsDelete", type: :request do
         log_in_as(user)
         delete shop_path(shop)
         follow_redirect!
-        expect(response.body).to include "Shop deleted"
+        expect(response.body).to include "店舗を削除しました"
       end
 
       it "他ユーザーの店舗投稿を消去せず、rootページにリダイレクトする" do

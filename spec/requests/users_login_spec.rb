@@ -58,7 +58,7 @@ RSpec.describe "UsersLogin", type: :request do
                                                 password: non_active_user.password,
           } }
           follow_redirect!
-          expect(response.body).to include "Account not activated.Check your email for the activaiton link."
+          expect(response.body).to include "アカウントが有効化されていません、emailに送られた有効化リンクを確認して下さい"
         end
 
         it "rootページにリダイレクトする" do
@@ -84,7 +84,7 @@ RSpec.describe "UsersLogin", type: :request do
         post login_path, params: { session: { email: "user@invalid",
                                               password: "wrong",
         } }
-        expect(response.body).to include "invalid email/password combination"
+        expect(response.body).to include "メールアドレスかパスワードが違います"
       end
     end
 

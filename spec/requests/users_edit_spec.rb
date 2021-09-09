@@ -38,7 +38,7 @@ RSpec.describe "UsersEdit", type: :request do
       it "エラーメッセージを表示する" do
         get edit_user_path(user)
         follow_redirect!
-        expect(response.body).to include "Please log in."
+        expect(response.body).to include "ログインして下さい"
       end
 
       it "loginページにリダイレクトする" do
@@ -99,7 +99,7 @@ RSpec.describe "UsersEdit", type: :request do
       it "エラーメッセージを表示する" do
         get edit_user_path(user)
         follow_redirect!
-        expect(response.body).to include "Please log in."
+        expect(response.body).to include "ログインして下さい"
       end
 
       it "loginページにリダイレクトする" do

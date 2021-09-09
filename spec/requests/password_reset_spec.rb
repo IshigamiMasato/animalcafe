@@ -25,7 +25,7 @@ RSpec.describe "PasswordReset", type: :request do
       it "メッセージを表示する" do
         post password_resets_path, params: { password_reset: { email: user.email } }
         follow_redirect!
-        expect(response.body).to include "Email sent with password reset instructions"
+        expect(response.body).to include "パスワード変更メールを送信しました"
       end
 
       it "rootページにリダイレクトする" do
@@ -47,7 +47,7 @@ RSpec.describe "PasswordReset", type: :request do
 
       it "エラーを表示する" do
         post password_resets_path, params: { password_reset: { email: "user@invalid" } }
-        expect(response.body).to include "Email address not found"
+        expect(response.body).to include "メールアドレスが見つかりません"
       end
     end
   end
@@ -144,7 +144,7 @@ RSpec.describe "PasswordReset", type: :request do
                                                                                             password_confirmation: "password",
         } }
         follow_redirect!
-        expect(response.body).to include "Password has been reset."
+        expect(response.body).to include "パスワードを変更しました"
       end
 
       it "rootページにリダイレクトする" do
@@ -200,7 +200,7 @@ RSpec.describe "PasswordReset", type: :request do
                                                                                             password_confirmation: "password",
         } }
         follow_redirect!
-        expect(response.body).to include "Password reset has expired."
+        expect(response.body).to include "パスワード変更メールの有効期限が切れています"
       end
     end
   end

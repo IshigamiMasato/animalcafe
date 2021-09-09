@@ -8,15 +8,16 @@ class SessionsController < ApplicationController
       if user.activated?
         log_in(user)
         params[:session][:remember_me] == "1" ? remember(user) : forget(user)
+        flash[:success] = "ログインしました"
         redirect_back_or(shops_url)
       else
-        message = "Account not activated."
-        message += "Check your email for the activaiton link."
+        message = "アカウントが有効化されていません、"
+        message += "emailに送られた有効化リンクを確認して下さい"
         flash[:warning] = message
         redirect_to root_url
       end
     else
-      flash.now[:danger] = "invalid email/password combination"
+      flash.now[:danger] = "メールアドレスかパスワードが違います"
       render "new"
     end
   end
@@ -29,7 +30,7 @@ class SessionsController < ApplicationController
   def guest_login
     user = User.guest
     log_in(user)
-    flash[:success] = "login as a test user"
+    flash[:success] = "ゲストユーザーとしてログインしました"
     redirect_to shops_url
   end
 end

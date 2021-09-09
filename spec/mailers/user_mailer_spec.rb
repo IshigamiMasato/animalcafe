@@ -10,7 +10,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "ヘッダー部分" do
-      expect(@mail.subject).to eq("Account activation")
+      expect(@mail.subject).to eq("アカウント有効化")
       expect(@mail.to).to eq([user.email])
       expect(@mail.from).to eq(["noreply@animalcafe.com"])
     end
@@ -31,7 +31,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "ヘッダー部分" do
-      expect(@mail.subject).to eq("Password reset")
+      expect(@mail.subject).to eq("パスワード変更")
       expect(@mail.to).to eq([user.email])
       expect(@mail.from).to eq(["noreply@animalcafe.com"])
     end

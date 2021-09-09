@@ -24,7 +24,7 @@ class ShopsController < ApplicationController
     if @shop.save
       @shop.save_animal_tag(animal_tags) if animal_tags.present?
       @shop.save_env_tag(env_tags) if env_tags.present?
-      flash[:success] = "Shop created!"
+      flash[:success] = "店舗を投稿しました!"
       redirect_to @shop
     else
       render "new"
@@ -40,7 +40,7 @@ class ShopsController < ApplicationController
     if @shop.update(shop_params)
       @shop.save_animal_tag(animal_tags) if animal_tags.present?
       @shop.save_env_tag(env_tags) if env_tags.present?
-      flash[:success] = "Shop updated"
+      flash[:success] = "店舗情報を更新しました"
       redirect_to @shop
     else
       render "edit"
@@ -49,7 +49,7 @@ class ShopsController < ApplicationController
 
   def destroy
     @shop.destroy
-    flash[:success] = "Shop deleted"
+    flash[:success] = "店舗を削除しました"
     redirect_to @shop.user
   end
 

@@ -48,7 +48,7 @@ RSpec.describe "ShopsPost", type: :request do
         it "成功メッセージを表示する" do
           post shops_path, params: { shop: shop_params }
           follow_redirect!
-          expect(response.body).to include "Shop created!"
+          expect(response.body).to include "店舗を投稿しました!"
         end
 
         it "店舗showページにリダイレクトする" do
@@ -96,7 +96,7 @@ RSpec.describe "ShopsPost", type: :request do
       it "エラーメッセージを表示する" do
         post shops_path, params: { shop: shop_params }
         follow_redirect!
-        expect(response.body).to include "Please log in."
+        expect(response.body).to include "ログインして下さい"
       end
     end
   end

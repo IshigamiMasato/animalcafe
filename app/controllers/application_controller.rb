@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def logged_in_user
     unless logged_in?
       store_location # GETメソッドのリクエストURLをsessionに保存
-      flash[:danger] = "Please log in."
+      flash[:danger] = "ログインして下さい"
       redirect_to login_url
     end
   end

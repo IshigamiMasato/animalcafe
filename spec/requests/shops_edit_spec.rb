@@ -34,7 +34,7 @@ RSpec.describe "ShopsEdit", type: :request do
       it "エラーメッセージを表示する" do
         get edit_shop_path(shop)
         follow_redirect!
-        expect(response.body).to include "Please log in."
+        expect(response.body).to include "ログインして下さい"
       end
       it "loginページにリダイレクトする" do
         get edit_shop_path(shop)
@@ -79,7 +79,7 @@ RSpec.describe "ShopsEdit", type: :request do
       it "エラーメッセージを表示する" do
         patch shop_path(shop), params: { shop: edit_shop_params }
         follow_redirect!
-        expect(response.body).to include "Please log in."
+        expect(response.body).to include "ログインして下さい"
       end
 
       it "loginページにリダイレクトする" do

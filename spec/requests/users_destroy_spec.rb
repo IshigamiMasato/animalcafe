@@ -60,7 +60,7 @@ RSpec.describe "DELETE /users/:id", type: :request do
     it "エラーを表示する" do
       delete user_path(other_user)
       follow_redirect!
-      expect(response.body).to include "Please log in."
+      expect(response.body).to include "ログインして下さい"
     end
 
     it "loginページにリダイレクトする" do
