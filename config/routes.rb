@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :shops do
-    resources :reviews, only: [:create]
+    resources :reviews, only: [:create, :destroy]
   end
   resources :bookmarks, only: [:create, :destroy]
   post "/guest_login", to: "sessions#guest_login"

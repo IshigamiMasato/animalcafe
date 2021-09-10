@@ -96,9 +96,9 @@ RSpec.describe "PostShops", type: :system do
     click_link user.name
     expect(current_path).to eq user_path(user)
 
-    expect(page).to have_link "delete"
+    expect(page).to have_link "削除"
     expect {
-      click_link "delete"
+      click_link "削除"
     }.to change(Shop, :count).by(-1)
     expect(current_path).to eq user_path(user)
     expect(page).to have_selector "div.alert-success"
@@ -110,6 +110,6 @@ RSpec.describe "PostShops", type: :system do
     click_link other_user.name
     expect(current_path).to eq user_path(other_user)
     expect(page).to have_content other_user_shop.name
-    expect(page).to_not have_link "delete"
+    expect(page).to_not have_link "削除"
   end
 end

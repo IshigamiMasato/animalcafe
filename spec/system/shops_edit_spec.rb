@@ -17,14 +17,14 @@ RSpec.describe "ShopsEdit", type: :system do
     visit user_path(user)
     expect(current_path).to eq user_path(user)
 
-    expect(page).to_not have_link "update"
+    expect(page).to_not have_link "更新"
 
     # ログインした後
     log_in_as(user)
     expect(current_path).to eq shops_path
 
-    expect(page).to have_link "update"
-    click_link "update"
+    expect(page).to have_link "更新"
+    click_link "更新"
     expect(current_path).to eq edit_shop_path(shop)
 
     # 無効な編集情報を入力する

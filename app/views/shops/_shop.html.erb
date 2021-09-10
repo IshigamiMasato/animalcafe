@@ -28,8 +28,8 @@
       </div>
       <% if current_user?(shop.user) %>
         <div class="manipulate_shop">
-          <%= link_to "update", edit_shop_path(shop) %>
-          | <%= link_to "delete", shop, method: :delete, data: { confirm: "You sure?" } %>
+          <%= link_to "更新", edit_shop_path(shop) %>
+          | <%= link_to "削除", shop, method: :delete, data: { confirm: "本当に削除しますか？" } %>
         </div>
       <% end %>
     </div>

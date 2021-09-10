@@ -762,6 +762,14 @@ img.default_avater_link {
         margin-top: 10px;
         margin-left: 32px;
       }
+      .manipulate_review {
+        text-align: right;
+        a {
+          font-size: 12px;
+          color: #777;
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
