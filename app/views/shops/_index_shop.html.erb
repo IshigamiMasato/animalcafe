@@ -1,14 +1,14 @@
-<% if @shops.any? %>
+<% if shops.any? %>
   <div class="container shop_index_frame_wrap">
     <div class="shop_index_frame">
-      <p><%= yield(:result_text) %>: <%= @shops.count %>件</p>
+      <p><%= yield(:result_text) %>: <%= shops.count %>件</p>
       <ol class="shops">
-        <%= render @shops %>
+        <%= render shops %>
       </ol>
     </div>
   </div>
   <div class="paginate_center">
-    <%= will_paginate @shops %>
+    <%= will_paginate shops %>
   </div>
 <% else %>
   <p><%= yield(:result_text) %>: 0件</p>

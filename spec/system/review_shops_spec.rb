@@ -3,13 +3,17 @@ require 'rails_helper'
 RSpec.describe "ReviewShops", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let(:other_user) { FactoryBot.create(:user) }
+  let(:reviewer) { FactoryBot.create(:user) }
   let(:shop) { FactoryBot.create(:shop, user: other_user) }
+  let!(:review1) { FactoryBot.create(:review, content: "1つめのクチコミ", user: reviewer, shop: shop) }
+  let!(:review2) { FactoryBot.create(:review, content: "2つめのクチコミ", user: reviewer, shop: shop) }
+  let!(:review3) { FactoryBot.create(:review, content: "3つめのクチコミ", user: reviewer, shop: shop) }
 
   it "店舗にクチコミをする" do
     # ログイン前
     visit shop_path(shop)
     expect(current_path).to eq shop_path(shop)
-    click_button "クチコミする"
+    click_button "送信"
     expect(current_path).to eq login_path
     expect(page).to have_selector "div.alert-danger"
 
@@ -23,10 +27,13 @@ RSpec.describe "ReviewShops", type: :system do
     visit shop_path(shop)
     expect(current_path).to eq shop_path(shop)
 
+    # ３軒目まではもっと見るリンクは表示しない
+    expect(page).to_not have_link "もっと見る..."
+
     # 無効な送信をする
     expect {
       fill_in "review_content", with: "a" * 256
-      click_button "クチコミする"
+      click_button "送信"
     }.to_not change(Review, :count)
     expect(page).to have_selector "div#error_explanation"
     expect(page).to have_css "div.field_with_errors"
@@ -37,9 +44,12 @@ RSpec.describe "ReviewShops", type: :system do
     expect {
       find("#rating_value", visible: false).set("5")
       fill_in "review_content", with: "a" * 255
-      click_button "クチコミする"
+      click_button "送信"
     }.to change(Review, :count).by(1)
     expect(page).to have_content "a" * 255
+
+    # 4件目からもっと見るリンクを表示する
+    expect(page).to have_link "もっと見る..."
 
     # クチコミを削除する
     expect(page).to have_link "削除"

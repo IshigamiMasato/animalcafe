@@ -2,5 +2,5 @@
 <% provide(:button_text, "Save changes") %>
 <h1>Update your profile</h1>
 <div class="profile_edit_frame">
-  <%= render "form" %>
+  <%= render partial: "users/form", locals: { user: @user } %>
 </div>

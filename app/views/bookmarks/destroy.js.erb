@@ -1,1 +1,1 @@
-$("#bookmark_form").html("<%= escape_javascript(render("shops/bookmark")) %>");
+$("#bookmark_form").html("<%= escape_javascript(render partial: ("shops/bookmark"), locals: { shop: @shop }) %>");

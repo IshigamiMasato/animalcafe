@@ -686,6 +686,15 @@ img.default_avater_link {
 
 /* review */
 /* review area */
+.review_area {
+  padding-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  .review_area_comment {
+    text-decoration: underline;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .review_area {
     margin-top: 50px;
@@ -712,9 +721,18 @@ img.default_avater_link {
       margin-left: 10px;
     }
   }
+  .text_line {
+    border-radius: 0px;
+  }
+  .review_btn_wrap {
+    text-align: right;
+    .review_btn {
+      width: 20%;
+    }
+  }
   textarea {
     width: 100%;
-    height: 150px;
+    height: 50px;
   }
 }
 
@@ -723,6 +741,13 @@ img.default_avater_link {
   padding: 30px 0;
   .reviews {
     padding: 0;
+    .more {
+      font-size: 12px;
+      color: #777;
+      display: block;
+      margin: 5px 0;
+      text-align: center;
+    }
     .review_box {
       padding: 20px 0;
       border-bottom: 1px solid #e6e6e6;

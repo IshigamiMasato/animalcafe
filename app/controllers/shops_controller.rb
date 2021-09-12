@@ -14,7 +14,7 @@ class ShopsController < ApplicationController
     @shop = Shop.find(params[:id])
     @tags = @shop.tags
     @review = Review.new
-    @reviews = @shop.reviews.limit(10)
+    @reviews = @shop.reviews
   end
 
   def create

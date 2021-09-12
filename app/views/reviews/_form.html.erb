@@ -1,5 +1,5 @@
 <div class="rating_box">
-  <%= form_with(model: @review, url: shop_reviews_path(@shop), local: true) do |f| %>
+  <%= form_with(model: review, url: shop_reviews_path(shop), local: true) do |f| %>
     <%= render "shared/error_messages", object: f.object %>
 
     <div class="main_rating">
@@ -14,11 +14,13 @@
         <span id="rating_value_display">0</span>/5
       </div>
     </div>
-    <%= f.hidden_field :shop_id, value: @shop.id %>
+    <%= f.hidden_field :shop_id, value: shop.id %>
     <%= f.hidden_field :score, id: "rating_value" %>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, class: "text_line" %>
 
-    <%= f.submit "クチコミする", class: "btn btn-primary" %>
+    <div class="review_btn_wrap">
+      <%= f.submit "送信", class: "review_btn" %>
+    </div>
   <% end %>
 </div>
 

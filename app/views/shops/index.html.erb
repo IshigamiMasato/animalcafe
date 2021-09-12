@@ -1,3 +1,3 @@
 <% provide(:title, "Search shops") %>
 <% provide(:result_text, "検索結果") %>
-<%= render "index_shop" %>
+<%= render partial: "shops/index_shop", locals: { shops: @shops } %>

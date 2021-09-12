@@ -1,4 +1,4 @@
 <% provide(:title, @user.name) %>
-<%= render "user_menu" %>
+<%= render partial: "users/user_menu", locals: { user: @user } %>
 <% provide(:result_text, "過去の投稿") %>
-<%= render "shops/index_shop" %>
+<%= render partial: "shops/index_shop", locals: { shops: @shops } %>

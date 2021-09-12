@@ -1,0 +1,14 @@
+クチコミ: <%= reviews.count %>件
+<% reviews.first(3).each do |review| %>
+  <%= render review %>
+<% end %>
+<% if reviews.count >= 4 %> 
+  <a class="more" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    もっと見る...
+  </a>
+  <div class="collapse" id="collapseExample">
+    <% reviews.offset(3).each do |review| %>
+      <%= render review %>
+    <% end %>
+  </div>
+<% end %>

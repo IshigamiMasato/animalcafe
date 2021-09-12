@@ -6,6 +6,7 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @review.user_id = current_user.id
     if @review.save
+      flash[:success] = "クチコミを投稿しました!"
       redirect_to @review.shop
     else
       @shop = Shop.find(params[:shop_id])

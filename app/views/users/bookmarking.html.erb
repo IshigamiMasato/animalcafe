@@ -1,4 +1,4 @@
 <% provide(:title, "Bookmark shops") %>
-<%= render "user_menu" %>
+<%= render partial: "users/user_menu", locals: { user: @user } %>
 <% provide(:result_text, "ブックマーク") %>
-<%= render "shops/index_shop" %>
+<%= render partial: "shops/index_shop", locals: { shops: @shops } %>

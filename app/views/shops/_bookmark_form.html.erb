@@ -1,9 +1,9 @@
-<% unless current_user?(@shop.user) %>
+<% unless current_user?(shop.user) %>
   <div id="bookmark_form">
-    <% if current_user.bookmarking?(@shop) %>
-      <%= render "shops/unbookmark" %>
+    <% if current_user.bookmarking?(shop) %>
+      <%= render partial: "shops/unbookmark", locals: { shop: shop } %>
     <% else %>
-      <%= render "shops/bookmark" %>
+      <%= render partial: "shops/bookmark", locals: { shop: shop } %>
     <% end %>
   </div>
 <% end %>
