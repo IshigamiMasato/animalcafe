@@ -7,6 +7,7 @@ RSpec.describe "SearchShops", type: :system do
   let!(:tokyo_area_shop4) { FactoryBot.create(:shop, address: "東京都世田谷区北沢２丁目２４−２", user: user) }
   let!(:tokyo_area_shop5) { FactoryBot.create(:shop, address: "東京都新宿区百人町１丁目", user: user) }
   let!(:tokyo_area_shop6) { FactoryBot.create(:shop, address: "東京都渋谷区神宮前１丁目", user: user) }
+  let!(:tokyo_area_shop7) { FactoryBot.create(:shop, address: "東京都渋谷区神宮前2丁目", user: user) }
   let!(:kanagawa_area_shop) { FactoryBot.create(:other_shop, user: user) }
   let(:user) { FactoryBot.create(:user) }
 
@@ -19,7 +20,7 @@ RSpec.describe "SearchShops", type: :system do
     click_button "検索"
     expect(current_path).to eq shops_path
     expect(page).to have_title "Search shops | ANIMAL CAFE"
-    expect(page).to have_content "検索結果: 7件"
+    expect(page).to have_content "検索結果: 8件"
 
     # 登録していない住所で検索
     fill_in "search_address", with: "北海道"
@@ -31,7 +32,7 @@ RSpec.describe "SearchShops", type: :system do
     fill_in "search_address", with: "東京"
     click_button "検索"
     expect(current_path).to eq shops_path
-    expect(page).to have_content "検索結果: 6件"
+    expect(page).to have_content "検索結果: 7件"
     expect(page).to have_css "div.pagination"
     # 新しく作成された店舗の投稿が検索上位に来る
     expect(page).to_not have_link tokyo_area_shop.name
@@ -40,6 +41,7 @@ RSpec.describe "SearchShops", type: :system do
     expect(page).to have_link tokyo_area_shop4.name
     expect(page).to have_link tokyo_area_shop5.name
     expect(page).to have_link tokyo_area_shop6.name
+    expect(page).to have_link tokyo_area_shop7.name
 
     # 東京都新宿区西新宿2-8-1で検索
     fill_in "search_address", with: "東京都新宿区西新宿2-8-1"
@@ -60,7 +62,7 @@ RSpec.describe "SearchShops", type: :system do
     expect(current_path).to eq shops_path
     find(".user_icon").click
     expect(current_path).to eq user_path(user)
-    expect(page).to have_content "過去の投稿: 7件"
+    expect(page).to have_content "過去の投稿: 8件"
     expect(page).to have_css "div.pagination"
     # 新しく作成された店舗の投稿が検索上位に来る
     expect(page).to_not have_link tokyo_area_shop.name
@@ -69,6 +71,7 @@ RSpec.describe "SearchShops", type: :system do
     expect(page).to have_link tokyo_area_shop4.name
     expect(page).to have_link tokyo_area_shop5.name
     expect(page).to have_link tokyo_area_shop6.name
+    expect(page).to have_link tokyo_area_shop7.name
     expect(page).to have_link kanagawa_area_shop.name
   end
 end

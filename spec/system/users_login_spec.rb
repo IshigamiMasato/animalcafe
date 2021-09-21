@@ -7,7 +7,7 @@ RSpec.describe "UsersLogin", type: :system do
     visit root_path
     expect(current_path).to eq root_path
 
-    click_link "Log in", match: :first
+    click_link "ログイン", match: :first
     expect(current_path).to eq login_path
 
     # 有効なメールアドレスと、無効なパスワードをログイン情報に入力した場合
@@ -17,8 +17,8 @@ RSpec.describe "UsersLogin", type: :system do
 
     expect(page).to have_selector "div.alert-danger"
     within ".navbar-right" do # ログインしていないことを確認
-      expect(page).to have_link "Log in"
-      expect(page).to_not have_link "Log out"
+      expect(page).to have_link "ログイン"
+      expect(page).to_not have_link "ログアウト"
       expect(page).to_not have_link href: user_path(user)
     end
 
@@ -31,7 +31,7 @@ RSpec.describe "UsersLogin", type: :system do
     visit root_path
     expect(current_path).to eq root_path
 
-    click_link "Log in", match: :first
+    click_link "ログイン", match: :first
     expect(current_path).to eq login_path
 
     fill_in "メールアドレス", with: ""
@@ -40,8 +40,8 @@ RSpec.describe "UsersLogin", type: :system do
 
     expect(page).to have_selector "div.alert-danger"
     within ".navbar-right" do # ログインしていないことを確認
-      expect(page).to have_link "Log in"
-      expect(page).to_not have_link "Log out"
+      expect(page).to have_link "ログイン"
+      expect(page).to_not have_link "ログアウト"
       expect(page).to_not have_link href: user_path(user)
     end
 
@@ -54,7 +54,7 @@ RSpec.describe "UsersLogin", type: :system do
     visit root_path
     expect(current_path).to eq root_path
 
-    click_link "Log in", match: :first
+    click_link "ログイン", match: :first
     expect(current_path).to eq login_path
 
     fill_in "メールアドレス", with: user.email
@@ -63,18 +63,18 @@ RSpec.describe "UsersLogin", type: :system do
 
     expect(current_path).to eq shops_path
     within ".navbar-right" do # ログインしていることを確認
-      expect(page).to_not have_link "Log in"
-      expect(page).to have_link "Log out"
+      expect(page).to_not have_link "ログイン"
+      expect(page).to have_link "ログアウト"
       expect(page).to have_link href: user_path(user)
     end
 
     # ログアウトする
-    click_link "Log out", match: :first
+    click_link "ログアウト", match: :first
 
     expect(current_path).to eq root_path
     within ".navbar-right" do # ログアウトしていることを確認
-      expect(page).to have_link "Log in"
-      expect(page).to_not have_link "Log out"
+      expect(page).to have_link "ログイン"
+      expect(page).to_not have_link "ログアウト"
       expect(page).to_not have_link href: user_path(user)
     end
   end

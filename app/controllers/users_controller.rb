@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
-    @shops = @user.shops.paginate(page: params[:page], per_page: 5)
+    @shops = @user.shops.paginate(page: params[:page], per_page: 6)
   end
 
   def create
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
   def bookmarking
     @user = User.find(params[:id])
-    @shops = @user.bookmarking.paginate(page: params[:page], per_page: 5)
+    @shops = @user.bookmarking.paginate(page: params[:page], per_page: 6)
   end
 
   private

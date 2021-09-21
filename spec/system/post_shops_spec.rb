@@ -15,8 +15,8 @@ RSpec.describe "PostShops", type: :system do
     log_in_as(user)
     expect(current_path).to eq shops_path
     within ".navbar-right" do # ログインしていることを確認
-      expect(page).to_not have_link "Log in"
-      expect(page).to have_link "Log out"
+      expect(page).to_not have_link "ログイン"
+      expect(page).to have_link "ログアウト"
       expect(page).to have_link href: user_path(user)
     end
     expect(page).to have_link href: new_shop_path, count: 2
@@ -96,20 +96,19 @@ RSpec.describe "PostShops", type: :system do
     click_link user.name
     expect(current_path).to eq user_path(user)
 
-    expect(page).to have_link "削除"
     expect {
-      click_link "削除"
+      find(".trash_icon").click
     }.to change(Shop, :count).by(-1)
     expect(current_path).to eq user_path(user)
     expect(page).to have_selector "div.alert-success"
 
     # 違うユーザーのプロフィールに削除リンクがない
-    click_link "Users", match: :first
+    visit users_path
     expect(current_path).to eq users_path
     expect(page).to have_link other_user.name
     click_link other_user.name
     expect(current_path).to eq user_path(other_user)
     expect(page).to have_content other_user_shop.name
-    expect(page).to_not have_link "削除"
+    expect(page).to_not have_selector ".trash_icon"
   end
 end

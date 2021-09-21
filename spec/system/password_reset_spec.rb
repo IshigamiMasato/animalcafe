@@ -7,7 +7,7 @@ RSpec.describe "PasswordReset", type: :system do
     visit root_path
     expect(current_path).to eq root_path
 
-    click_link "Log in", match: :first
+    click_link "ログイン", match: :first
     expect(current_path).to eq login_path
     click_link "(パスワードをお忘れですか？)"
     expect(current_path).to eq new_password_reset_path

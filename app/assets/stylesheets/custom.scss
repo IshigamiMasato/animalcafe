@@ -26,7 +26,7 @@
 /* universal(共通) */
 body {
   position: relative;
-  padding-top: 100px;
+  padding-top: 70px;
   padding-bottom: 100px;
   background: #f5f5f5; // 薄い灰色
   min-height: 100vh; // bodyの縦幅が最低でも1画面ぶんはあるようにする
@@ -47,6 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 3em; // 親要素に対しての倍率を指定、この場合300%となる 
   letter-spacing: -2px;
+  margin-top: 50px;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -91,6 +92,12 @@ a {
 
 header {
   background: #fff;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  .header_icon {
+    font-weight: bold;
+  }
   .search_form {
     display: flex;
     margin-top: 10px;
@@ -118,7 +125,7 @@ header {
   color: #222;
   letter-spacing: -1px;
   padding-top: 9px;
-  font-weight: lighter;
+  font-weight: bold;
 }
 
 /* hamburger mune */
@@ -252,13 +259,22 @@ footer {
   width: 100vw;
   color: #222;
   background: #fff;
-  padding-top: 5px;
+  height: 50px;
   p {
-    font-weight: lighter;
     text-align: center;
     font-size: 1.1em;
-    line-height: 1.7em;
+    line-height: 50px;
   }
+}
+
+/* error messages */
+.alert {
+  text-align: center;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0 !important
 }
 
 /* forms */
@@ -309,8 +325,11 @@ input {
 
 /* top page */
 .top_main {
-  width: 100%;
-  height: 80vh;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 90vh;
+  margin-bottom: 80px;
   background-image: image-url("top_cafe.jpg");
   background-size: cover;
   position: relative;
@@ -331,66 +350,148 @@ input {
     bottom: 0;
     left: 0;
     margin: auto;
-    max-width: 330px;
-    max-height: 200px;
+    max-width: 450px;
+    max-height: 380px;
     padding: 25px;
     text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    overflow: scroll;
+    .search_form {
+      padding-top: 20px;
+      .form-control {
+        margin-bottom: 10px !important;
+        font-size: 18px;
+      }
+    }
     p {
       font-size: 20px;
       font-weight: bold;
-      color: #fff;
+      color: #000;
+      padding-top: 65px;
     }
-    .explanation_link_wrap {
-      padding: 10px;
-      .explanation_link {
-        color: #fff;
-        font-size: 18px;
-        &:hover {
-          font-size: 24px;
-          -webkit-transition: all 0.4s ;
-          transition: all 0.4s ;
-        }
-      }
+    .explanation_link {
+      display: block;
+      margin-top: 50px;
+      padding-top: 20px;
+      font-size: 20px;
+      border-top: 1px solid #000;
     }
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .home_search_area {
+    left: 40% !important;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .home_search_area {
+    width: 85%;
+  }
+}
+
+/* tab menu */
+.tabs {
+  position: relative;
+  .tab_btns span {
+    cursor: pointer;
+    border-bottom: 2px solid #ddd;
+    display: block;
+    width: 50%;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+  }
+  #lamp {
+    background: #000;
+    width: 50%;
+    height: 2px;
+    position: absolute;
+    top: 28px;
+  }
+  .lamp_content1 {
+    left: 0;
+  }
+  .lamp_content2 {
+    left: 50%;
   }
 }
 
 /* top app explanation */
-.app_explanation_area {
-  background: #fff;
-  text-align: center;
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 3px #777;
-  i {
-    margin-left: 3px;
-  }
-  .top_signup_btn {
-    margin-top: 10px;
+.app_explanation_word {
+  color: #000;
+  width: 100%;
+  font-size: 25px;
+  text-align: left;
+  .fa-book-reader {
+    margin-right: 10px;
   }
 }
 
-/* tog tag */
+  /* top tag */
 .tag_search_area {
-  h2 {
-    border-bottom: 1px solid #777;
-    padding: 2px 0;
-    color: #000;
-    text-align: left;
-    i {
-      margin-right: 3px;
-    }
-  }
+  display: block !important;
+  padding-top: 50px;
+  text-align: initial;
   a {
+    color: #000;
     display: inline-block;
-    background: #fff;
-    padding: 5px;
+    padding: 4px;
     margin: 2px;
     border: #000 1px solid;
-    border-radius: 2px;
+    border-radius: 15px;
     &:before {
       content: "#";
+    }
+  }
+}
+
+/* app explanation area*/
+.app_explanation_area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 70px;
+  .card {
+    padding: 20px;
+    margin: 20px auto;
+    width: 300px;
+    height: 500px;
+    background: #909090;
+    box-shadow: 2px 2px 2px #222;
+    .card_image {
+      width: 100%;
+      height: 75%;
+      background-size: cover;
+      border: 1px solid #000;
+    }
+    .card_imgframe {
+      background-image: image-url("post_shop.png");
+    }
+    .card_imgframe2 {
+      background-image: image-url("bookmark.png");
+    }
+    .card_imgframe3 {
+      background-image: image-url("review.png");
+    }
+    .card_textbox {
+      width: 100%;
+      height: auto;
+      padding: 20px 18px;
+      background: #909090;
+      .card_title {
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 1px solid #fff;
+        margin-bottom: 10px;
+      }
+      .card_text {
+        color: #fff;
+      }
     }
   }
 }
@@ -399,6 +500,9 @@ input {
 /* signup page */
 .signup_frame {
   @include form_frame;
+  .alert {
+    width: 100%;
+  }
 }
 
 /* login page */
@@ -448,7 +552,7 @@ aside {
 }
 
 div.user_frame {
-  margin: 0 auto;
+  margin: 50px auto 0;
   padding-bottom: 20px;
 }
 
@@ -504,6 +608,7 @@ img.default_avater_link {
         a {
           display: inline-block;
           width: 150px;
+          font-weight: bold;
         }
       }
     }
@@ -523,37 +628,65 @@ img.default_avater_link {
 
 .shop_index_frame_wrap {
   border-bottom: 1px solid #e6e6e6;
+  margin-top: 50px;
   .shop_index_frame {
     padding-bottom: 30px;
-    li {
-      margin-top: 50px;
-    }
-    img {
-      width: 100%;
-      height: 50vw;
-      object-fit: cover;
-    }
     ol.shops {
-      margin: 0;
-      padding: 0 30px;
-      .fa-clock {
-        margin-left: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      li {
+        margin: 20px auto;
+        .shop_card {
+          width: 300px;
+          height: 400px;
+          background: #fff;
+          border-radius: 5px;
+          box-shadow: 2px 2px 6px #777;
+          img {
+            width: 100%;
+            height: 55%;
+            object-fit: cover;
+            border-radius: 5px 5px 0 0;
+          }
+          .shop_card_content {
+            padding: 20px;
+            height: 45%;
+            position: relative;
+            .shop_card_title {
+              font-size: 20px;
+              font-weight: bold;
+              margin: 0;
+              a {
+                color: #505050;
+              }
+            }
+            .shop_card_text {
+              margin-top: 20px;
+            }
+            .timestamp {
+              position: absolute;
+              bottom: 10px;
+            }
+            .manipulate_shop {
+              position: absolute;
+              bottom: 10px;
+              right: 15px;
+            }
+          }
+        }
       }
-    }
-    .shop_name {
-      color: #000;
-      font-weight: bold;
-    }
-    .manipulate_shop a {
-      color: #0066cb;
     }
   }
 }
 
-@media screen and (min-width: 768px) {
-  .shop_index_frame {
-    img {
-      height: 20vw !important;
+@media screen and (max-width: 340px) {
+  ol.shops {
+    li {
+      width: 100%;
+      .shop_card {
+        width: 100% !important;
+      }
     }
   }
 }
@@ -586,6 +719,9 @@ img.default_avater_link {
 /* post shop new page */
 .post_shop_frame {
   @include form_frame();
+  .alert {
+    width: 100%;
+  }
   .btn {
     margin-top: 20px;
   }
@@ -602,10 +738,17 @@ img.default_avater_link {
 }
 
 /* shop show page */
+.shop_wrap {
+  margin-top: 70px;
+  padding: 0 10px !important;
+}
 .shop_frame {
   max-width: 700px;
   margin: 0 auto;
   background: #f5f5f5;
+  table {
+    background: #fff;
+  }
   #bookmark_form {
     text-align: right;
     .bookmark_btn {
@@ -656,7 +799,7 @@ img.default_avater_link {
       border: 1px solid #000;
       padding: 1px 5px;
       margin: 2px;
-      border-radius: 5px;
+      border-radius: 15px;
       &:before {
         content: "#";
       }
@@ -707,6 +850,9 @@ img.default_avater_link {
 .rating_box {
   padding: 10px 0 30px;
   border-bottom: 1px solid #e6e6e6;
+  .alert {
+    width: 100%;
+  }
   .main_rating {
     display: flex;
     .ratings {

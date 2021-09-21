@@ -16,9 +16,9 @@
   <div class="scroll-nav">
     <ul>
       <% if current_user?(user) %>
-        <li class="scroll-nav-list"><%= link_to "プロフィール編集", edit_user_path(user) %></li>
+        <li class="scroll-nav-list"><%= link_to icon("far", "edit", "プロフィール編集"), edit_user_path(user) %></li>
       <% end %>
-      <li class="scroll-nav-list"><%= link_to "過去の投稿", user %></li>
+      <li class="scroll-nav-list"><%= link_to icon("fas", "list", "過去の投稿"), user %></li>
       <li class="scroll-nav-list"><%= link_to icon("fas", "bookmark", "ブックマーク"), bookmarking_user_path(user) %></li>
     </ul>
   </div>

@@ -7,13 +7,13 @@ RSpec.describe "SiteLayouts", type: :system do
 
       it "ヘッダーとサイドバーに正しいリンクを表示する" do
         expect(page).to have_link "ANIMAL CAFE"
-        expect(page).to have_link "What is animal cafe?"
-        expect(page).to have_link "Log in", count: 2
-        expect(page).to have_link "Sign up now!", count: 2
+        expect(page).to have_link "animal cafe とは?"
+        expect(page).to have_link href: login_path, count: 2
+        expect(page).to have_link href: signup_path, count: 2
       end
 
       it "What is an animal cafe?リンクを押すと、aboutページに遷移する" do
-        click_link "What is animal cafe?"
+        click_link "animal cafe とは?"
         expect(current_path).to eq about_path
         expect(page).to have_title "About | ANIMAL CAFE"
       end
@@ -26,28 +26,28 @@ RSpec.describe "SiteLayouts", type: :system do
             expect(page).to have_title "ANIMAL CAFE"
           end
 
-          it "Log inリンクを押すと、loginページに遷移する" do
-            click_link "Log in", match: :first
+          it "ログインリンクを押すと、loginページに遷移する" do
+            click_link "ログイン", match: :first
             expect(current_path).to eq login_path
             expect(page).to have_title "Log in | ANIMAL CAFE"
           end
 
-          it "Sign up now!のリンクを押すと、signupページに遷移する" do
-            click_link "Sign up now!", match: :first
+          it "新規登録のリンクを押すと、signupページに遷移する" do
+            click_link "新規登録", match: :first
             expect(current_path).to eq signup_path
             expect(page).to have_title "Sign up | ANIMAL CAFE"
           end
         end
 
         describe "サイドバーのリンク" do
-          it "Log inリンクを押すと、loginページに遷移する" do
-            page.all(:link, "Log in")[1].click
+          it "ログインリンクを押すと、loginページに遷移する" do
+            page.all(:link, "ログイン")[1].click
             expect(current_path).to eq login_path
             expect(page).to have_title "Log in | ANIMAL CAFE"
           end
 
-          it "Sign up now!のリンクを押すと、signupページに遷移する" do
-            page.all(:link, "Sign up now!")[1].click
+          it "新規登録のリンクを押すと、signupページに遷移する" do
+            page.all(:link, "新規登録")[1].click
             expect(current_path).to eq signup_path
             expect(page).to have_title "Sign up | ANIMAL CAFE"
           end
@@ -63,11 +63,9 @@ RSpec.describe "SiteLayouts", type: :system do
       describe "ヘッダーとサイドバーのレイアウト" do
         it "ヘッダーとサイドバーに正しいリンクを表示する" do
           expect(page).to have_link "ANIMAL CAFE"
-          expect(page).to have_link "Users", count: 2
           expect(page).to have_link href: user_path(user), count: 2
-          expect(page).to have_link "Log out", count: 2
-          expect(page).to have_link href: new_shop_path
-          expect(page).to have_link "New post"
+          expect(page).to have_link href: logout_path, count: 2
+          expect(page).to have_link href: new_shop_path, count: 2
         end
 
         describe "画面遷移" do
@@ -84,46 +82,34 @@ RSpec.describe "SiteLayouts", type: :system do
               expect(page).to have_title "#{user.name} | ANIMAL CAFE"
             end
 
-            it "Log outリンクを押すと、Homeページに遷移する" do
-              click_link "Log out", match: :first
+            it "ログアウトリンクを押すと、Homeページに遷移する" do
+              click_link "ログアウト", match: :first
               expect(current_path).to eq root_path
               expect(page).to have_title "ANIMAL CAFE"
             end
 
-            it "usersリンクを押すと、ユーザーindexページに遷移する" do
-              click_link "Users", match: :first
-              expect(current_path).to eq users_path
-              expect(page).to have_title "All users | ANIMAL CAFE"
-            end
-
-            it "+Postリンクを押すと、shop投稿ページに遷移する" do
-              find(".post_shop_icon").click
+            it "投稿を押すと、shop投稿ページに遷移する" do
+              click_link "投稿", match: :first
               expect(current_path).to eq new_shop_path
               expect(page).to have_title "Post shop | ANIMAL CAFE"
             end
           end
 
           describe "サイドバーのリンク" do
-            it "Profileリンクを押すと、profileページに遷移する" do
-              click_link "Profile"
+            it "プロフィールリンクを押すと、profileページに遷移する" do
+              click_link "プロフィール"
               expect(current_path).to eq user_path(user)
               expect(page).to have_title "#{user.name} | ANIMAL CAFE"
             end
 
-            it "Log outリンクを押すと、Homeページに遷移する" do
-              page.all(:link, "Log out")[1].click
+            it "ログアウトリンクを押すと、Homeページに遷移する" do
+              page.all(:link, "ログアウト")[1].click
               expect(current_path).to eq root_path
               expect(page).to have_title "ANIMAL CAFE"
             end
 
-            it "usersリンクを押すと、ユーザーindexページに遷移する" do
-              page.all(:link, "Users")[1].click
-              expect(current_path).to eq users_path
-              expect(page).to have_title "All users | ANIMAL CAFE"
-            end
-
-            it "New postリンクを押すと、shop投稿ページに遷移する" do
-              click_link "New post"
+            it "投稿リンクを押すと、shop投稿ページに遷移する" do
+              page.all(:link, "投稿")[1].click
               expect(current_path).to eq new_shop_path
               expect(page).to have_title "Post shop | ANIMAL CAFE"
             end

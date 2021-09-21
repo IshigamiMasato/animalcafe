@@ -1,128 +1,90 @@
 <%= provide(:title, @shop.name) %>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-7">
-      <div class="shop_frame">
-        <div class="slider">
-          <% if @shop.images.attached? %>
-            <% @shop.images.each do |image| %>
-              <%= image_tag image %>
-            <% end %>
-          <% else %>
-            <%= image_tag "noimage.png" %>
+<div class="row shop_wrap">
+  <div class="col-sm-7">
+    <div class="shop_frame">
+      <div class="slider">
+        <% if @shop.images.attached? %>
+          <% @shop.images.each do |image| %>
+            <%= image_tag image %>
           <% end %>
-        </div>
-        <%= render partial: "shops/bookmark_form", locals: { shop: @shop } if logged_in? %>
-        <div class="shop_name"><%= @shop.name %></div>
-        <div class="avg_score_wrap">
-          <div class="avg_score_value"><%= @shop.avg_score %></div>
-          <div class="avg_score">
-            <div class="avg_score_front" style="width: <%= @shop.avg_score_percentage %>%">★★★★★</div>
-            <div class="avg_score_back">★★★★★</div>
-          </div>
-          <div class="review_count">クチコミ: <%= @shop.reviews.count %>件</div>
-        </div>
-        <i class="fas fa-map-marker-alt"></i><span><%= @shop.nearest_station %></span>
-        <i class="far fa-clock"></i><span><%= @shop.started_at.strftime("%H:%M") %>~<%= @shop.closed_at.strftime("%H:%M") %></span>
-        <div class="poster_link">投稿者:
-          <%= link_to @shop.user do %>
-            <% if @shop.user.avater.attached? %>
-              <%= image_tag @shop.user.avater.variant(resize_to_fill: [20, 20]), class: "poster_avater_link" %>
-            <% else %>
-              <%= image_tag "default.png", class: "default_avater_link" %>
-            <% end %>
-            <%= @shop.user.name %>
-          <% end %>
-        </div>
-        <% if @tags.present? %>
-          <div class="shop_tags_area">
-            <i class="fas fa-tags"></i>
-            <% @tags.each do |tag| %>
-              <%= link_to tag.name, tag_shops_path(tag) %>
-            <% end %>
-          </div>
-        <% end %>
-        <p>このカフェについて</p>
-        <div class="description"><%= @shop.description %></div>
-        <table border="1" cellpadding="5">
-            <tr>
-              <th>店舗名<tdh>
-              <td><%= @shop.name %></td>
-            </tr>
-            <tr>
-              <th>最寄り駅<tdh>
-              <td><%= @shop.nearest_station %></td>
-            </tr>
-            <tr>
-              <th>住所<tdh>
-              <td>
-                <%= @shop.address %>
-                <div id="map"></div>
-              </td>
-            </tr>
-            <tr>
-              <th>電話番号<tdh>
-              <td><%= @shop.phone_number %></td>
-            </tr>
-            <tr>
-              <th>営業時間<tdh>
-              <td><%= @shop.started_at.strftime("%H:%M") %>~<%= @shop.closed_at.strftime("%H:%M") %></td>
-            </tr>
-            <tr>
-              <th>定休日</th>
-              <td><%= @shop.regular_holiday %></td>
-            </tr>
-            <tr>
-              <th>平均予算</th>
-              <td><%= @shop.low_budget %>円~
-                <% if @shop.high_budget %>
-                  <%= @shop.high_budget %>円
-                <% end %>
-              </td>
-            </tr>
-        </table>
-      </div>
-    </div>
-    <div class="col-sm-5 review_area">
-      <p class="review_area_comment">クチコミを投稿する</p>
-      <%= render partial: "reviews/form", locals: { review: @review, shop: @shop } %>
-      <div class="reviews_frame">
-        <% if @reviews.any? %>
-          <div class="reviews">
-            <%= render partial: "reviews/index", locals: { reviews: @reviews } %>
-          </div>
         <% else %>
-          <div>クチコミ: 0件</div>
+          <%= image_tag "noimage.png" %>
         <% end %>
       </div>
+      <%= render partial: "shops/bookmark_form", locals: { shop: @shop } if logged_in? %>
+      <div class="shop_name"><%= @shop.name %></div>
+      <div class="avg_score_wrap">
+        <div class="avg_score_value"><%= @shop.avg_score %></div>
+        <div class="avg_score">
+          <div class="avg_score_front" style="width: <%= @shop.avg_score_percentage %>%">★★★★★</div>
+          <div class="avg_score_back">★★★★★</div>
+        </div>
+        <div class="review_count">クチコミ: <%= @shop.reviews.count %>件</div>
+      </div>
+      <i class="fas fa-map-marker-alt"></i><span><%= @shop.nearest_station %></span>
+      <i class="far fa-clock"></i><span><%= @shop.started_at.strftime("%H:%M") %>~<%= @shop.closed_at.strftime("%H:%M") %></span>
+      <div class="poster_link">投稿者:
+        <%= link_to @shop.user do %>
+          <% if @shop.user.avater.attached? %>
+            <%= image_tag @shop.user.avater.variant(resize_to_fill: [20, 20]), class: "poster_avater_link" %>
+          <% else %>
+            <%= image_tag "default.png", class: "default_avater_link" %>
+          <% end %>
+          <%= @shop.user.name %>
+        <% end %>
+      </div>
+      <% if @tags.present? %>
+        <div class="shop_tags_area">
+          <i class="fas fa-tags"></i>
+          <% @tags.each do |tag| %>
+            <%= link_to tag.name, tag_shops_path(tag) %>
+          <% end %>
+        </div>
+      <% end %>
+      <p>このカフェについて</p>
+      <div class="description"><%= @shop.description %></div>
+      <%= render partial: "shops/shop_info_table", locals: { shop: @shop } %>
+    </div>
+  </div>
+  <div class="col-sm-5 review_area">
+    <p class="review_area_comment">クチコミを投稿する</p>
+    <%= render partial: "reviews/form", locals: { review: @review, shop: @shop } %>
+    <div class="reviews_frame">
+      <% if @reviews.any? %>
+        <div class="reviews">
+          <%= render partial: "reviews/index", locals: { reviews: @reviews } %>
+        </div>
+      <% else %>
+        <div>クチコミ: 0件</div>
+      <% end %>
     </div>
   </div>
 </div>
 
-<%= javascript_pack_tag "slick/application" %>
+<%= javascript_pack_tag "slick/slide" %>
 <script>
   function initMap() {
-    var position ={ lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %> };
-    var map = new google.maps.Map(document.getElementById("map"), {
+    const uluru = { lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %> };
+    const map = new google.maps.Map(document.getElementById("map"), {
       zoom: 16,
-      center: position
+      center: uluru,
     });
-    var transitLayer = new google.maps.TransitLayer();
-    transitLayer.setMap(map);
-
-    var contentString = "住所：<%= @shop.address %>";
-    var infoWindow = new google.maps.InfoWindow({
-      content: contentString
+    const marker = new google.maps.Marker({
+      position: uluru,
+      map,
     });
-
-    var marker = new google.maps.Marker({
-      position:position,
-      map: map,
-      title: contentString
+    const contentString =
+      "<div><%= @shop.name %></div>" +
+      "<div><%= @shop.address %></div>";
+    const infowindow = new google.maps.InfoWindow({
+      content: contentString,
     });
 
-    marker.addListener("click", function() {
-      infoWindow.open(map, marker);
+    marker.addListener("click", () => {
+      infowindow.open({
+        anchor: marker,
+        map,
+      });
     });
   }
 </script>

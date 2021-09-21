@@ -1,37 +1,37 @@
 <li id="shop-<%= shop.id %>">
-  <div class="row ">
-    <div class="col-sm-4 col-sm-offset-2">
-      <%= link_to shop do %>
-        <% if shop.images.attached? %>
-          <%= image_tag shop.images.first %>
-        <% else %>
-          <%= image_tag "noimage.png" %>
+  <section class="shop_card">
+    <%= link_to shop do %>
+      <% if shop.images.attached? %>
+        <%= image_tag shop.images.first, class: "card-img" %>
+      <% else %>
+        <%= image_tag "noimage.png", class: "card-img" %>
+      <% end %>
+    <% end %>
+    <div class="shop_card_content">
+      <h1 class="shop_card_title"><%= link_to shop.name, shop %></h1>
+      <div class="shop_card_text">
+        <div class="avg_score_wrap">
+          <div class="avg_score_value"><%= shop.avg_score %></div>
+          <div class="avg_score">
+            <div class="avg_score_front" style="width: <%= shop.avg_score_percentage %>%">★★★★★</div>
+            <div class="avg_score_back">★★★★★</div>
+          </div>
+          <div class="review_count">クチコミ: <%= shop.reviews.count %>件</div>
+        </div>
+        <div>
+          <i class="fas fa-map-marker-alt"></i><span><%= shop.nearest_station %></span>
+          <i class="far fa-clock"></i><span><%= shop.started_at.strftime("%H:%M") %>~<%= shop.closed_at.strftime("%H:%M") %></span>
+        </div>
+        <div class="timestamp">
+          投稿日: <%= time_ago_in_words(shop.created_at) %>前
+        </div>
+        <% if current_user?(shop.user) %>
+          <div class="manipulate_shop">
+            <%= link_to icon("far", "edit"), edit_shop_path(shop), class: "edit_icon" %>
+            | <%= link_to icon("far", "trash-alt"), shop, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "trash_icon" %>
+          </div>
         <% end %>
-      <% end %>
+      </div>
     </div>
-    <div class="col-sm-6">
-      <div class="shop_name"><%= link_to shop.name, shop %></div>
-      <div class="avg_score_wrap">
-        <div class="avg_score_value"><%= shop.avg_score %></div>
-        <div class="avg_score">
-          <div class="avg_score_front" style="width: <%= shop.avg_score_percentage %>%">★★★★★</div>
-          <div class="avg_score_back">★★★★★</div>
-        </div>
-        <div class="review_count">クチコミ: <%= shop.reviews.count %>件</div>
-      </div>
-      <div>
-        <i class="fas fa-map-marker-alt"></i><span><%= shop.nearest_station %></span>
-        <i class="far fa-clock"></i><span><%= shop.started_at.strftime("%H:%M") %>~<%= shop.closed_at.strftime("%H:%M") %></span>
-      </div>
-      <div class="timestamp">
-        投稿日: <%= time_ago_in_words(shop.created_at) %>前
-      </div>
-      <% if current_user?(shop.user) %>
-        <div class="manipulate_shop">
-          <%= link_to "更新", edit_shop_path(shop) %>
-          | <%= link_to "削除", shop, method: :delete, data: { confirm: "本当に削除しますか？" } %>
-        </div>
-      <% end %>
-    </div>
-  </div>
+  </section>
 </li>

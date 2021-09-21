@@ -14,13 +14,13 @@ animal cafeとは自分が行ったことのある動物カフェを投稿して
 ### 使い方(gif)
 ***
 * 店舗投稿  
-![新規投稿](https://user-images.githubusercontent.com/80932192/132681124-68936e85-b0f5-4676-9755-debbbbd14711.gif)
+![新規投稿](https://user-images.githubusercontent.com/80932192/134137400-002ef2b5-9171-46c0-b799-32650001559b.gif)  
 
 * 気になるお店をブックマーク  
-![ブックマーク](https://user-images.githubusercontent.com/80932192/132683041-a70ded46-6a01-4684-8654-fa31d775a941.gif)
-    
+![ブックマーク](https://user-images.githubusercontent.com/80932192/134141139-8814d1ed-3118-4cab-9e0d-7175bea4a512.gif)  
+
 * 行ったお店にクチコミ  
-![クチコミ](https://user-images.githubusercontent.com/80932192/132684541-5fe77b34-2cb3-474e-9e85-3fb46bb436e2.gif)
+![クチコミ](https://user-images.githubusercontent.com/80932192/134141690-cf0250f4-c064-466d-abd1-9a05b8795912.gif)  
 
 ### ER図
 ***

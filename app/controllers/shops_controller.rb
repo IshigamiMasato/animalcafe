@@ -3,7 +3,7 @@ class ShopsController < ApplicationController
   before_action :correct_shop_poster, only: [:edit, :update, :destroy]
 
   def index
-    @shops = Shop.search(user_search_params).includes(:reviews, :user).paginate(page: params[:page], per_page: 5)
+    @shops = Shop.search(user_search_params).includes(:reviews, :user).paginate(page: params[:page], per_page: 6)
   end
 
   def new
@@ -55,7 +55,7 @@ class ShopsController < ApplicationController
 
   def tag_search
     tag = Tag.find(params[:tag_id])
-    @shops = tag.shops.paginate(page: params[:page], per_page: 5)
+    @shops = tag.shops.paginate(page: params[:page], per_page: 6)
     render "index" and return
   end
 

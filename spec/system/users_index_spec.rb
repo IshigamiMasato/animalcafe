@@ -9,7 +9,7 @@ RSpec.describe "paginationレイアウトとユーザー削除のテスト", typ
   context "管理者ユーザーでログインした場合" do
     it "paginationとdeleteリンクを正しく表示し、ユーザーを削除する" do
       log_in_as(admin_user)
-      click_link "Users", match: :first
+      visit users_path
       expect(current_path).to eq users_path
       expect(page).to_not have_link non_activated_user.name, href: user_path(non_activated_user)
       expect(page).to have_css "div.pagination", count: 2
@@ -29,7 +29,7 @@ RSpec.describe "paginationレイアウトとユーザー削除のテスト", typ
   context "管理者ではないユーザーでログインした場合" do
     it "deleteリンクを表示しない" do
       log_in_as(non_admin_user)
-      click_link "Users", match: :first
+      visit users_path
       expect(current_path).to eq users_path
       expect(page).to_not have_link "delete"
     end

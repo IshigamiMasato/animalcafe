@@ -20,8 +20,8 @@ RSpec.describe "ReviewShops", type: :system do
     # ログインする
     log_in_as(user)
     within ".navbar-right" do # ログインしていることを確認
-      expect(page).to_not have_link "Log in"
-      expect(page).to have_link "Log out"
+      expect(page).to_not have_link "ログイン"
+      expect(page).to have_link "ログアウト"
       expect(page).to have_link href: user_path(user)
     end
     visit shop_path(shop)
@@ -65,8 +65,8 @@ RSpec.describe "ReviewShops", type: :system do
     it "レビューの削除リンクを表示しない" do
       log_in_as(other_user)
       within ".navbar-right" do # ログインしていることを確認
-        expect(page).to_not have_link "Log in"
-        expect(page).to have_link "Log out"
+        expect(page).to_not have_link "ログイン"
+        expect(page).to have_link "ログアウト"
         expect(page).to have_link href: user_path(other_user)
       end
       visit shop_path(shop)

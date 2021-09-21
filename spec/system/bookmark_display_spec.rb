@@ -29,7 +29,7 @@ RSpec.describe "BookmarkDisplay", type: :system do
     expect(page).to have_content "ブックマーク: 7件"
     expect(page).to have_css "div.pagination"
     expect(page).to_not have_link bookmark.shop.name
-    expect(page).to_not have_link bookmark2.shop.name
+    expect(page).to have_link bookmark2.shop.name
     expect(page).to have_link bookmark3.shop.name
     expect(page).to have_link bookmark4.shop.name
     expect(page).to have_link bookmark5.shop.name
