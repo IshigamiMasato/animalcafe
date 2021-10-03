@@ -1,4 +1,4 @@
-name: Automatic Tests
+name: Tests and Deproy
 on: [push, pull_request]
 jobs:
   build:
@@ -9,7 +9,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6.7
-      - name: build and test
+      - name: Build and test
         env:
           RAILS_ENV: test
         run: |
@@ -18,5 +18,15 @@ jobs:
           bin/rails db:create
           bin/rails db:migrate
           bin/yarn install
-          rubocop
-          rspec
+          bundle exec rubocop
+          bundle exec rspec
+  heroku-deproy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "dry-dawn-42498"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
