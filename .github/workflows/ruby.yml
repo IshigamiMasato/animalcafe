@@ -3,27 +3,24 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      db:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: password
-    container:
-      image: ishigamimasato/animalcafe
-      credentials:
-        username: ${{secrets.DOCKERHUB_USERNAME}}
-        password: ${{secrets.DOCKERHUB_TOKEN}}
-      env:
-        RAILS_ENV: test
     steps:
-      - name: Setup Database
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.6.7
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.7
+      - name: Build
+        env:
+          RAILS_ENV: test
+        run: docker-compose up --build
+      - name: DB setting
         run: |
-          bin/rails db:create
-          bin/rails db:migrate
+          docker-compose run web rails db:create
+          docker-compose run web rails db:migrate
       - name: Run RSpec
-        run: bundle exec rspec
+        run: docker-compose run web bundle exec rspec
       - name: Run Rubocop
-        run: bundle exec rubocop
+        run: docker-compose run web bundle exec rubocop
   heroku-deproy:
     needs: build
     runs-on: ubuntu-latest
