@@ -3,23 +3,27 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Ruby 2.6.7
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.6.7
-      - name: Build and test
+    services:
+      db:
+        image: postgres
         env:
-          RAILS_ENV: test
+          POSTGRES_PASSWORD: password
+    container:
+      image: ishigamimasato/animalcafe
+      credentials:
+        username: ${{secrets.DOCKERHUB_USERNAME}}
+        password: ${{secrets.DOCKERHUB_TOKEN}}
+      env:
+        RAILS_ENV: test
+    steps:
+      - name: Setup Database
         run: |
-          sudo apt-get -yqq install libsqlite3-dev
-          bundle install
           bin/rails db:create
           bin/rails db:migrate
-          bin/yarn install
-          bundle exec rubocop
-          bundle exec rspec
+      - name: Run RSpec
+        run: bundle exec rspec
+      - name: Run Rubocop
+        run: bundle exec rubocop
   heroku-deproy:
     needs: build
     runs-on: ubuntu-latest

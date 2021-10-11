@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_09_07_052144) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_09_07_052144) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -51,8 +54,8 @@ ActiveRecord::Schema.define(version: 2021_09_07_052144) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "shop_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "shop_id", null: false
     t.string "content"
     t.integer "score", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -73,7 +76,7 @@ ActiveRecord::Schema.define(version: 2021_09_07_052144) do
     t.integer "low_budget"
     t.integer "high_budget"
     t.text "description"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "nearest_station"
@@ -84,8 +87,8 @@ ActiveRecord::Schema.define(version: 2021_09_07_052144) do
   end
 
   create_table "tag_maps", force: :cascade do |t|
-    t.integer "shop_id", null: false
-    t.integer "tag_id", null: false
+    t.bigint "shop_id", null: false
+    t.bigint "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["shop_id"], name: "index_tag_maps_on_shop_id"
