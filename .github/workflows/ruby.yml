@@ -12,7 +12,7 @@ jobs:
       - name: Build
         env:
           RAILS_ENV: test
-        run: docker-compose up --build
+        run: docker-compose build
       - name: DB setting
         run: |
           docker-compose run web rails db:create
