@@ -10,8 +10,6 @@ jobs:
         with:
           ruby-version: 2.6.7
       - name: Build
-        env:
-          RAILS_ENV: test
         run: docker-compose build
       - name: DB setting
         run: |
