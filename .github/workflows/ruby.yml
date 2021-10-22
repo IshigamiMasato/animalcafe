@@ -14,9 +14,9 @@ jobs:
       - name: Run container
         run: docker-compose up -d
       - name: Run RSpec
-        run: docker-compose exec web bundle exec rspec
+        run: docker-compose exec -T web bundle exec rspec
       - name: Run RuboCop    
-        run: docker-compose exec web bundle exec rubocop
+        run: docker-compose exec -T web bundle exec rubocop
   heroku-deproy:
     needs: build
     runs-on: ubuntu-latest
