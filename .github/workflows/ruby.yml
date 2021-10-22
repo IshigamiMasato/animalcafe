@@ -6,10 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: |
-          docker-compose build
-          docker-compose run web yarn install --check-files
-          docker-compose run web yarn upgrade
+        run: docker-compose build
       - name: DB create
         run: docker-compose run web rails db:create
       - name: Table create  
