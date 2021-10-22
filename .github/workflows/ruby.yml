@@ -9,6 +9,7 @@ jobs:
         run: |
           docker-compose run web yarn install --check-files
           docker-compose run web yarn upgrade
+          sudo chown -R $USER /home/runner/work/animalcafe/animalcafe/tmp/db
           docker-compose build
       - name: DB create
         run: docker-compose run web rails db:create
