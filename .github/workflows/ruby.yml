@@ -11,11 +11,12 @@ jobs:
         run: |
           docker-compose run web rails db:create
           docker-compose run web rails db:migrate
-      - name: Run Test
-        run: |
-          docker-compose up -d
-          docker-compose exec web bundle exec rspec
-          docker-compose exec web bundle exec rubocop
+      - name: Run container
+        run: docker-compose up -d
+      - name: Run RSpec
+        run: docker-compose exec web bundle exec rspec
+      - name: Run RuboCop    
+        run: docker-compose exec web bundle exec rubocop
   heroku-deproy:
     needs: build
     runs-on: ubuntu-latest
