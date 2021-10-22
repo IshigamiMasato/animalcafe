@@ -6,15 +6,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: docker-compose build
+        run: |
+          docker-compose up --build
+          docker-compose exec web yarn install --check-files
+          docker-compose exec web yarn upgrade
       - name: DB create
-        run: docker-compose run web rails db:create
+        run: docker-compose exec web rails db:create
       - name: Table create  
-        run: docker-compose run web rails db:migrate
+        run: docker-compose exec web rails db:migrate
       - name: Run RSpec
-        run: docker-compose run web bundle exec rspec
+        run: docker-compose exec web bundle exec rspec
       - name: Run Rubocop
-        run: docker-compose run web bundle exec rubocop
+        run: docker-compose exec web bundle exec rubocop
   heroku-deproy:
     needs: build
     runs-on: ubuntu-latest
