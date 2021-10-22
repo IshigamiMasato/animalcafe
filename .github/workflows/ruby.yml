@@ -7,7 +7,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build
         run: |
-          docker-compose up --build
+          docker-compose build
+          docker-compose up -d
           docker-compose exec web yarn install --check-files
           docker-compose exec web yarn upgrade
       - name: DB create
