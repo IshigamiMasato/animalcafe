@@ -749,14 +749,24 @@ img.default_avater_link {
   table {
     background: #fff;
   }
-  #bookmark_form {
-    text-align: right;
+  .like_and_bookmark_wrap {
+    display: flex;
+    justify-content: flex-end;
     .bookmark_btn {
       margin-top: 10px;
       background: none;
       border-style: none;
       .bm {
-        font-size: 30px;
+        font-size: 25px;
+      }
+    }
+    .like_btn {
+      margin-top: 10px;
+      background: none;
+      border-style: none;
+      color: #ed2d6b;
+      .like {
+        font-size: 25px;
       }
     }
   }

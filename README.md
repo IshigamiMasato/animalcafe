@@ -55,6 +55,7 @@ https://dry-dawn-42498.herokuapp.com
 * Googlemap表示機能(Google Maps Javascript API)
 * 店舗住所からの緯度経度変換(Geocoding API)
 * ブックマーク機能(ajax)
+* いいね機能(ajax)
 * レビュー機能
 
 ## 環境・使用技術
@@ -77,7 +78,7 @@ https://dry-dawn-42498.herokuapp.com
 * GitHub Actionsによる自動テスト、自動デプロイ
 
 ### テストツール
-* RSpec (247spec)
+* RSpec (261spec)
   * model spec ... モデルのバリデーションやメソッドなどのテスト
   * request spec ... リクエストのレスポンスとControllerのロジック部分のテスト
   * system spec ... UIの統合テスト

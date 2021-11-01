@@ -4,6 +4,7 @@ class Shop < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps
+  has_many :likes, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
 

@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarking, through: :bookmarks, source: :shop
   has_many :reviews, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :shop_likes, through: :likes, source: :shop
 
   attr_accessor :remember_token, :activation_token, :reset_token
 
@@ -116,6 +118,21 @@ class User < ApplicationRecord
   # 現在のユーザーがブックマークしてたらtrueを返す
   def bookmarking?(shop)
     bookmarking.include?(shop)
+  end
+
+  # 店舗をいいねする
+  def like(shop)
+    shop_likes << shop
+  end
+
+  # 店舗のいいねを解除する
+  def unlike(shop)
+    likes.find_by(shop_id: shop.id).destroy
+  end
+
+  # ユーザーのいいねに店舗が入っていたらtrueを返す
+  def like?(shop)
+    shop_likes.include?(shop)
   end
 
   private

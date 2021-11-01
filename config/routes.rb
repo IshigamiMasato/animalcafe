@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   resources :tags do
     get :shops, to: "shops#tag_search"
   end
+  resources :likes, only: [:create, :destroy]
 end

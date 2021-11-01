@@ -1,0 +1,7 @@
+<%= form_with(model: current_user.likes.find_by(shop_id: shop.id),
+                     html: { method: :delete }) do |f| %>
+  <%= f.button type: "submit", class: "like_btn" do %>
+    <i class="fas fa-heart like"></i>
+    <br><%= shop.likes.count %>
+  <% end %>
+<% end %>

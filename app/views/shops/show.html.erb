@@ -11,7 +11,10 @@
           <%= image_tag "noimage.png" %>
         <% end %>
       </div>
-      <%= render partial: "shops/bookmark_form", locals: { shop: @shop } if logged_in? %>
+      <div class="like_and_bookmark_wrap">
+        <%= render partial: "shops/like_form", locals: { shop: @shop } if logged_in? %>
+        <%= render partial: "shops/bookmark_form", locals: { shop: @shop } if logged_in? %>
+      </div>
       <div class="shop_name"><%= @shop.name %></div>
       <div class="avg_score_wrap">
         <div class="avg_score_value"><%= @shop.avg_score %></div>

@@ -1,0 +1,7 @@
+<div id="like_form">
+  <% if current_user.like?(shop) %>
+    <%= render partial: "shops/unlike", locals: { shop: shop } %>
+  <% else %>
+    <%= render partial: "shops/like", locals: { shop: shop } %>
+  <% end %>
+</div>
